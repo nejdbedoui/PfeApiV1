@@ -12,4 +12,5 @@ public interface IActionMarketingRepository extends MongoRepository<ActionMarket
     public List<ActionMarketing> findAllByDateCreation(Date DateDebut,Date DateFin);
     public List<ActionMarketing> findAllByIdPartenaire(String IdPartenaire);
     public List<ActionMarketing> findAll();
+    public ActionMarketing findActionMarketingByIdActionMarketing(String IdAction);
 }

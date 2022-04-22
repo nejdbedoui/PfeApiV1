@@ -27,7 +27,7 @@ public class ModeReglementEndPoint {
             + "\n<b>result = 1 :</b> objet créé avec succes</b> \n"
             + "\n<b>result = 0 :</b>ModeReglement est vide\n"
             + "\n<b>result = -1 :</b>PointVente n'exist pas\n"
-            + "\n<b>result = -2 :</b>id PointVente est null\n"
+            + "\n<b>result = -2 :</b>id PointVente e+st null\n"
             + "\n<b>result = -3 :</b> Query failed\n"
             + "\n<b>result = 401 :</b> TOKEN NOT AUTHORIZED\n"
             + "\n<b>result = 402 :</b> TOKEN MISSING.", authorizations = {
