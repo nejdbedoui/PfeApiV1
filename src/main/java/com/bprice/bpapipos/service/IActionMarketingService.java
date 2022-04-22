@@ -12,6 +12,6 @@ public interface IActionMarketingService {
     public ResponseObject findByIdActionMarketing(String IdAction);
     public ResponseObject findAllByIdPartenaireAndDateCreation(String IdPartenaire,Date DateDebut,Date DateFin);
     public ResponseObject findAllByDateCreation(Date DateDebut, Date DateFin);
-    public ResponseObject findAllByIdPartenaire(String IdPartenair);
+    public ResponseObject findAllByIdPartenaire(String IdPartenaire);
     public ResponseObject findAll();
 }
