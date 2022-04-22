@@ -1,0 +1,110 @@
+cache:
+  key: "${CI_COMMIT_REF_SLUG}"
+  paths:
+    - .m2/repository/
+    - target/
+
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository/"
+
+stages:
+  - remove
+  - build
+  - test
+  - delivery
+  - deploy
+
+
+codebuild-PRODUCTION:
+  stage: build
+  tags:
+    - java
+  script:
+    - mvn $MAVEN_CLI_OPTS clean install -P prod -U -DskipTests
+  only:
+    - master
+
+codebuild-DEVELOP:
+  stage: build
+  tags:
+    - java
+  script:
+    - mvn $MAVEN_CLI_OPTS clean install -P dev -U -DskipTests
+  only:
+    - development
+
+
+#codetest:
+#  stage: test
+#  tags:
+#    - test
+#  script:
+#    - mvn $MAVEN_CLI_OPTS test $MAVEN_OPTS
+#    - echo "The code has been tested"
+#  allow_failure: true
+
+Codedelivery-PRODUCTION:
+  stage: delivery
+  tags:
+    - test
+  script:
+    - mvn $MAVEN_CLI_OPTS  deploy -P prod -DskipTests $MAVEN_OPTS -Djacoco.skip=true
+    - echo "installing the package in local repository"
+  only:
+    - master
+
+Codedelivery-DEVELOP:
+  stage: delivery
+  tags:
+    - test
+  script:
+    - mvn $MAVEN_CLI_OPTS  deploy -P dev -DskipTests $MAVEN_OPTS -Djacoco.skip=true
+    - echo "installing the package in local repository"
+  only:
+    - development
+
+
+dev-deploy:
+  stage: deploy
+  before_script:
+    - export DYNAMIC_ENV_VAR=DEVELOP
+  only :
+    - development
+  tags:
+    - deploy
+  script:
+    - MVN_ARTIFACTID=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
+    - MVN_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+    - sudo cp target/${MVN_ARTIFACTID}-${MVN_VERSION}.war /opt/tomcat/apache-tomcat-8.5.75/webapps/
+    - sudo mv /opt/tomcat/apache-tomcat-8.5.75/webapps/${MVN_ARTIFACTID}-${MVN_VERSION}.war /opt/tomcat/apache-tomcat-8.5.75/webapps/$CI_PROJECT_NAME.war
+    #- lftp sftp://root:65mh2WdLz68O7@167.86.79.22/opt/tomcat/apache-tomcat-8.5.75/webapps -e "put target/$CI_PROJECT_NAME.war; bye"
+    #- sudo rm -Rf /opt/tomcat/apache-tomcat-8.5.75/webapps/$CI_PROJECT_NAME
+  environment:
+    name: development
+    url: http://167.86.79.22:8080/$CI_PROJECT_NAME/swagger-ui.html
+
+
+prod-deploy:
+  stage: deploy
+  tags:
+    - deploy
+  script:
+    - MVN_ARTIFACTID=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
+    - MVN_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
+    - sudo mv target/${MVN_ARTIFACTID}-${MVN_VERSION}.war  target/$CI_PROJECT_NAME.war
+    - lftp sftp://root:A34t5drv2D5Vn@62.171.144.28/opt/tomcat/webapps -e "put target/$CI_PROJECT_NAME.war; bye"
+  environment:
+    name: production
+    url: https://be.adcaisse.online/zull-serveur/$CI_PROJECT_NAME/swagger-ui.html
+  only :
+    - master
+
+
+# remove_persistance:
+#   stage: remove
+#   tags:
+#     - test
+#   script:
+#     - sudo rm -Rf .m2/repository/com/bprice/brpice-persistance-api
+#     - echo "remove persistance"

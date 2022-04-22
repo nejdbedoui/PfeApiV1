@@ -1,0 +1,16 @@
+version: "3"
+services:
+  apipersistnceeasylink:
+    image: ${MVN_ARTIFACTID}:${MVN_VERSION}
+    ports:
+      - "$PORT:8080"
+    networks:
+      - bpriceapiposdb_newtork
+
+
+## ##############################################################################################
+## NETWORK DEFINITION
+## ##############################################################################################
+
+networks:
+  bpriceapiposdb_newtork:
