@@ -166,6 +166,31 @@ public enum EnumMessage {
 	DETAILCOMMANDE_NOT_FOUND("detail commande n'existe pas",10),
 	LIST_DETAILCOMMANDE_EMPTY("pas de detail commande",11),
 
+	ACTIONMARKETING_EMPTY("Action Marketing vide",0),
+	ACTIONMARKETING_ID_EMPTY("id Action Marketing est null",-2),
+	ACTIONMARKETING_NOT_EXIST("Action Marketing n'exist pas",-5),
+	ACTIONMARKETING_EXIST("l'Action Marketing exist",1),
+	LIST_ACTIONMARKETING_NOT_EMPTY("la list des Action Marketing est non vide",1),
+	LIST_ACTIONMARKETING_EMPTY("la list des Action Marketing est vide",0),
+
+
+	CATEGORIE_EMPTY("Categorie vide",0),
+	CATEGORIE_ID_EMPTY("id Categorie est null",-2),
+	CATEGORIE_NOT_EXIST("Categorie n'exist pas",-5),
+	CATEGORIE_EXIST("la Categorie exist",1),
+	LIST_CATEGORIE_NOT_EMPTY("la list des Categories est non vide",1),
+	LIST_CATEGORIE_EMPTY("la list des Categories est vide",0),
+
+	POPULATIONCIBLE_EMPTY("Population Cible vide",0),
+	POPULATIONCIBLE_ID_EMPTY("id Population Cible est null",-2),
+	POPULATIONCIBLE_NOT_EXIST("Population Cible n'exist pas",-5),
+	POPULATIONCIBLE_EXIST("la Population Cible exist",1),
+	LIST_POPULATIONCIBLE_NOT_EMPTY("la list des Population Cibles est non vide",1),
+	LIST_POPULATIONCIBLE_EMPTY("la list des Population Cibles est vide",0),
+
+	PARTENAIREBPRICE_ID_EMPTY("id Partenaire est null",-2),
+
+
 
 	;
 
