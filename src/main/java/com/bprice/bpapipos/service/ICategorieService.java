@@ -10,6 +10,5 @@ public interface ICategorieService {
     public ResponseObject DeleteCategorie(String Idcat);
     public ResponseObject UpdateCategorie(Categorie categorie);
     public ResponseObject findByIdCategorie(String Idcat);
-    public ResponseObject findAllByIdActionMarketing(String idAction);
     public ResponseObject findAll();
 }

@@ -8,5 +8,4 @@ import java.util.List;
 public interface ICategorieRepository extends MongoRepository<Categorie, String> {
     public List<Categorie> findAll();
     public Categorie findCategorieByIdCategorie(String idCategorie);
-    public List<Categorie> findCategorieByIdActionMarketing(String idAction);
 }
