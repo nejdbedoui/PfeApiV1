@@ -68,6 +68,7 @@ public class CategorieServiceImpl implements ICategorieService {
             if (categorie != null) {
                 if (categorieRepository.existsById(categorie.getIdCategorie())) {
 
+
                             Categorie result = categorieRepository.save(categorie);
                             return new ResponseObject(EnumMessage.SUCCESS_UPDATE.code,
                                     EnumMessage.SUCCESS_UPDATE.label, result);
@@ -109,6 +110,20 @@ public class CategorieServiceImpl implements ICategorieService {
 
         }
     }
+
+
+    @Override
+    public ResponseObject findAllByIdActionMarketing() {
+        try {
+            List<Categorie> result = categorieRepository.findAll();
+            if (result != null) {
+                return new ResponseObject(EnumMessage.LIST_CATEGORIE_NOT_EMPTY.code, EnumMessage.LIST_CATEGORIE_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_CATEGORIE_EMPTY.code, EnumMessage.LIST_CATEGORIE_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
 
 

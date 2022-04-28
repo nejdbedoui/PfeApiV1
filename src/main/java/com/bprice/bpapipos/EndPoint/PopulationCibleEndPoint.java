@@ -51,6 +51,16 @@ public class PopulationCibleEndPoint {
     }
 
 
+    @GetMapping("/findByAll")
+    @ApiOperation(value = "Afficher les PopulationCibles selon l'idActionMarketing envoyer", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAll(HttpServletRequest request){
+        return  populationCibleService.findAllByIdActionMarketing();
+    }
+
 
     @GetMapping("/findByIdPopulationCible/{idPopulationCible}")
     @ApiOperation(value = "Afficher les Population Cibles selon l'idPopulationCible envoyer", authorizations = {

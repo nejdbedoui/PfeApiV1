@@ -24,16 +24,11 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
     public ResponseObject CreatePopulationCible(PopulationCible populationCible) {
         try {
             if (populationCible != null) {
-                PopulationCible result = populationCibleRepository.findPopulationCibleByAgeEqualsAndSexeEqualsAndVilleEquals(populationCible.getAge(),populationCible.getSexe(),populationCible.getVille());
-                if (result==null) {
-                     result = populationCibleRepository.save(populationCible);
-                    return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
-                            EnumMessage.SUCCESS_CREATION.label, result);
-                }
-                else{
-                     return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
-                            EnumMessage.POPULATIONCIBLE_EXIST.label,result );
-                }
+
+
+                        PopulationCible result = populationCibleRepository.save(populationCible);
+                        return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
+                                EnumMessage.SUCCESS_CREATION.label, result);
 
 
 
@@ -81,7 +76,6 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
 
 
 
-
                 } else {
                     return new ResponseObject(EnumMessage.POPULATIONCIBLE_NOT_EXIST.code, EnumMessage.POPULATIONCIBLE_NOT_EXIST.label,
                             null);
@@ -116,6 +110,19 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
 
         }
     }
+
+    @Override
+    public ResponseObject findAllByIdActionMarketing() {
+        try {
+            List<PopulationCible> result = populationCibleRepository.findAll();
+            if (result != null) {
+                return new ResponseObject(EnumMessage.LIST_POPULATIONCIBLE_NOT_EMPTY.code, EnumMessage.LIST_POPULATIONCIBLE_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_POPULATIONCIBLE_EMPTY.code, EnumMessage.LIST_POPULATIONCIBLE_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
 
 
