@@ -24,12 +24,16 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
     public ResponseObject CreatePopulationCible(PopulationCible populationCible) {
         try {
             if (populationCible != null) {
-
-
-
-                        PopulationCible result = populationCibleRepository.save(populationCible);
-                        return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
-                                EnumMessage.SUCCESS_CREATION.label, result);
+                PopulationCible result = populationCibleRepository.findPopulationCibleByAgeEqualsAndSexeEqualsAndVilleEquals(populationCible.getAge(),populationCible.getSexe(),populationCible.getVille());
+                if (result==null) {
+                     result = populationCibleRepository.save(populationCible);
+                    return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
+                            EnumMessage.SUCCESS_CREATION.label, result);
+                }
+                else{
+                     return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
+                            EnumMessage.POPULATIONCIBLE_EXIST.label,result );
+                }
 
 
 
