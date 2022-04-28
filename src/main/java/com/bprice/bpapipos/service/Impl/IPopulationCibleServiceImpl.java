@@ -24,25 +24,14 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
     public ResponseObject CreatePopulationCible(PopulationCible populationCible) {
         try {
             if (populationCible != null) {
-                if (populationCible.getIdActionMarketing() != null) {
-                    ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(populationCible.getIdActionMarketing())
-                            .getObjectResponse();
-                    if (actionMarketing != null) {
+
                         PopulationCible result = populationCibleRepository.save(populationCible);
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
 
 
 
-                    } else {
-                        return new ResponseObject(EnumMessage.POPULATIONCIBLE_NOT_EXIST.code,
-                                EnumMessage.POPULATIONCIBLE_NOT_EXIST.label, null);
 
-                    }
-                } else {
-                    return new ResponseObject(EnumMessage.ACTIONMARKETING_ID_EMPTY.code,
-                            EnumMessage.ACTIONMARKETING_ID_EMPTY.label, null);
-                }
             } else {
                 return new ResponseObject(EnumMessage.POPULATIONCIBLE_EMPTY.code, EnumMessage.POPULATIONCIBLE_EMPTY.label, null);
             }
@@ -77,24 +66,12 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
         try {
             if (populationCible != null) {
                 if (populationCibleRepository.existsById(populationCible.getIdPopulationCible())) {
-                    if (populationCible.getIdActionMarketing() != null) {
-                        ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService
-                                .findByIdActionMarketing(populationCible.getIdActionMarketing()).getObjectResponse();
-                        if (actionMarketing != null) {
+
                             PopulationCible result = populationCibleRepository.save(populationCible);
                             return new ResponseObject(EnumMessage.SUCCESS_UPDATE.code,
                                     EnumMessage.SUCCESS_UPDATE.label, result);
 
 
-                        } else {
-                            return new ResponseObject(EnumMessage.ACTIONMARKETING_EMPTY.code,
-                                    EnumMessage.ACTIONMARKETING_EMPTY.label, null);
-
-                        }
-                    } else {
-                        return new ResponseObject(EnumMessage.ACTIONMARKETING_ID_EMPTY.code,
-                                EnumMessage.ACTIONMARKETING_ID_EMPTY.label, null);
-                    }
                 } else {
                     return new ResponseObject(EnumMessage.POPULATIONCIBLE_NOT_EXIST.code, EnumMessage.POPULATIONCIBLE_NOT_EXIST.label,
                             null);
@@ -131,9 +108,9 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
     }
 
     @Override
-    public ResponseObject findAllByIdActionMarketing(String idAction) {
+    public ResponseObject findAllByIdActionMarketing() {
         try {
-            List<PopulationCible> result = populationCibleRepository.findPopulationCibleByIdActionMarketing(idAction);
+            List<PopulationCible> result = populationCibleRepository.findAll();
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_POPULATIONCIBLE_NOT_EMPTY.code, EnumMessage.LIST_POPULATIONCIBLE_NOT_EMPTY.label,
                         result);

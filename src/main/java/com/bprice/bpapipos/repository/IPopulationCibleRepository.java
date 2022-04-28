@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface IPopulationCibleRepository extends MongoRepository<PopulationCible,String> {
     public PopulationCible findPopulationCibleByIdPopulationCible(String idPopulation);
-    public List<PopulationCible> findPopulationCibleByIdActionMarketing(String idAction);
     public List<PopulationCible> findAll();
 }

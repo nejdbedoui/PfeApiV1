@@ -23,25 +23,16 @@ public class CategorieServiceImpl implements ICategorieService {
     public ResponseObject CreateCategorie(Categorie categorie) {
         try {
             if (categorie != null) {
-                if (categorie.getIdActionMarketing() != null) {
-                    ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(categorie.getIdActionMarketing())
-                            .getObjectResponse();
-                    if (actionMarketing != null) {
+
+
                         Categorie result = categorieRepository.save(categorie);
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
 
 
 
-                    } else {
-                        return new ResponseObject(EnumMessage.CATEGORIE_NOT_EXIST.code,
-                                EnumMessage.CATEGORIE_NOT_EXIST.label, null);
 
-                    }
-                } else {
-                    return new ResponseObject(EnumMessage.ACTIONMARKETING_EMPTY.code,
-                            EnumMessage.ACTIONMARKETING_EMPTY.label, null);
-                }
+
             } else {
                 return new ResponseObject(EnumMessage.CATEGORIE_EMPTY.code, EnumMessage.CATEGORIE_EMPTY.label, null);
             }
@@ -76,24 +67,15 @@ public class CategorieServiceImpl implements ICategorieService {
         try {
             if (categorie != null) {
                 if (categorieRepository.existsById(categorie.getIdCategorie())) {
-                    if (categorie.getIdActionMarketing() != null) {
-                        ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService
-                                .findByIdActionMarketing(categorie.getIdActionMarketing()).getObjectResponse();
-                        if (actionMarketing != null) {
+
+
                             Categorie result = categorieRepository.save(categorie);
                             return new ResponseObject(EnumMessage.SUCCESS_UPDATE.code,
                                     EnumMessage.SUCCESS_UPDATE.label, result);
 
 
-                        } else {
-                            return new ResponseObject(EnumMessage.ACTIONMARKETING_EMPTY.code,
-                                    EnumMessage.ACTIONMARKETING_EMPTY.label, null);
 
-                        }
-                    } else {
-                        return new ResponseObject(EnumMessage.ACTIONMARKETING_ID_EMPTY.code,
-                                EnumMessage.ACTIONMARKETING_ID_EMPTY.label, null);
-                    }
+
                 } else {
                     return new ResponseObject(EnumMessage.CATEGORIE_NOT_EXIST.code, EnumMessage.CATEGORIE_NOT_EXIST.label,
                             null);
@@ -130,9 +112,9 @@ public class CategorieServiceImpl implements ICategorieService {
     }
 
     @Override
-    public ResponseObject findAllByIdActionMarketing(String idAction) {
+    public ResponseObject findAllByIdActionMarketing() {
         try {
-            List<Categorie> result = categorieRepository.findCategorieByIdActionMarketing(idAction);
+            List<Categorie> result = categorieRepository.findAll();
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_CATEGORIE_NOT_EMPTY.code, EnumMessage.LIST_CATEGORIE_NOT_EMPTY.label,
                         result);

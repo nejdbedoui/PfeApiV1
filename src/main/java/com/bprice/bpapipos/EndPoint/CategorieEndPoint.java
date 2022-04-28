@@ -58,8 +58,8 @@ public class CategorieEndPoint {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllByIdActionMarketing(HttpServletRequest request,@PathVariable("idActionMarketing") String idActionMarketing){
-        return  categorieService.findAllByIdActionMarketing(idActionMarketing);
+    public Object findAll(HttpServletRequest request){
+        return  categorieService.findAllByIdActionMarketing();
     }
 
     @GetMapping("/findByIdCategorie/{idCategorie}")
