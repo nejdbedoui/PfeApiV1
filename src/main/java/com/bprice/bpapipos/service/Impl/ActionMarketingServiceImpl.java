@@ -136,7 +136,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Override
     public ResponseObject findAllByIdPartenaireAndDateCreation(String IdPartenaire, Date DateDebut, Date DateFin) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findAllByIdPartenaireAndDateCreation(IdPartenaire,DateDebut,DateFin);
+            List<ActionMarketing> result = actionMarketingRepository.findActionMarketingByIdPartenaireAndDateCreationBetween(IdPartenaire,DateDebut,DateFin);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -152,7 +152,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Override
     public ResponseObject findAllByDateCreation(Date DateDebut, Date DateFin) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findAllByDateCreation(DateDebut,DateFin);
+            List<ActionMarketing> result = actionMarketingRepository.findActionMarketingByDateCreationBetween(DateDebut,DateFin);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -185,7 +185,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     public ResponseObject findAll() {
         try {
             List<ActionMarketing> result = actionMarketingRepository.findAll();
-            if (result != null) {
+            if (result.size() >0) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
             } else {

@@ -50,6 +50,7 @@ public class PopulationCibleEndPoint {
         return populationCibleService.UpdatePopulationCible(PopulationCible);
     }
 
+
     @GetMapping("/findByAll")
     @ApiOperation(value = "Afficher les PopulationCibles selon l'idActionMarketing envoyer", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
@@ -59,6 +60,7 @@ public class PopulationCibleEndPoint {
     public Object findAll(HttpServletRequest request){
         return  populationCibleService.findAllByIdActionMarketing();
     }
+
 
     @GetMapping("/findByIdPopulationCible/{idPopulationCible}")
     @ApiOperation(value = "Afficher les Population Cibles selon l'idPopulationCible envoyer", authorizations = {

@@ -8,6 +8,8 @@ public interface IPopulationCibleService {
     public ResponseObject DeletePopulationCible(String IdPopulation);
     public ResponseObject UpdatePopulationCible(PopulationCible populationCible);
     public ResponseObject findByIdPopulationCible(String IdPopulation);
+
     public ResponseObject findAllByIdActionMarketing();
+
     public ResponseObject findAll();
 }

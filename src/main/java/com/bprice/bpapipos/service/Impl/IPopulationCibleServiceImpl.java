@@ -25,9 +25,11 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
         try {
             if (populationCible != null) {
 
+
                         PopulationCible result = populationCibleRepository.save(populationCible);
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
+
 
 
 
@@ -67,9 +69,11 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
             if (populationCible != null) {
                 if (populationCibleRepository.existsById(populationCible.getIdPopulationCible())) {
 
+
                             PopulationCible result = populationCibleRepository.save(populationCible);
                             return new ResponseObject(EnumMessage.SUCCESS_UPDATE.code,
                                     EnumMessage.SUCCESS_UPDATE.label, result);
+
 
 
                 } else {
@@ -120,8 +124,7 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
         } catch (Exception e) {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
-        }
-    }
+
 
     @Override
     public ResponseObject findAll() {

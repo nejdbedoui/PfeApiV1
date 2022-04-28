@@ -52,6 +52,7 @@ public class CategorieEndPoint {
         return categorieService.UpdateCategorie(categorie);
     }
 
+
     @GetMapping("/findByAllIdActionMarketing/{idActionMarketing}")
     @ApiOperation(value = "Afficher les Categories selon l'idActionMarketing envoyer", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
@@ -61,6 +62,7 @@ public class CategorieEndPoint {
     public Object findAll(HttpServletRequest request){
         return  categorieService.findAllByIdActionMarketing();
     }
+
 
     @GetMapping("/findByIdCategorie/{idCategorie}")
     @ApiOperation(value = "Afficher les Categories selon l'idCategorie envoyer", authorizations = {
