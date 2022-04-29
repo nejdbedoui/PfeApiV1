@@ -124,7 +124,7 @@ public class IPopulationCibleServiceImpl implements IPopulationCibleService {
         } catch (Exception e) {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
-
+        }}
 
     @Override
     public ResponseObject findAll() {

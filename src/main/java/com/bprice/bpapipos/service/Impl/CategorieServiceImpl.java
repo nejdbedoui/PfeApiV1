@@ -124,7 +124,8 @@ public class CategorieServiceImpl implements ICategorieService {
             }
         } catch (Exception e) {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
-
+        }
+    }
 
 
 

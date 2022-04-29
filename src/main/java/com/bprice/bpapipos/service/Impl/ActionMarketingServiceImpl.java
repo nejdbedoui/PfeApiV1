@@ -31,6 +31,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
                     PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(actionMarketing.getIdPartenaire())
                             .getObjectResponse();
                     if (partenaireBprice != null) {
+                        actionMarketing.setStatut(0);
                         ActionMarketing result = actionMarketingRepository.save(actionMarketing);
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);

@@ -190,6 +190,9 @@ public enum EnumMessage {
 
 	PARTENAIREBPRICE_ID_EMPTY("id Partenaire est null",-2),
 
+	Image_added("image ajouter",1),
+	Video_added("Video ajouter",2),
+	File_added_failed("Video/Image n'a pas ajouter",3),
 
 
 	;
