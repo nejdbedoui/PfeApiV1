@@ -8,9 +8,11 @@ import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @CrossOrigin("*")
@@ -19,6 +21,7 @@ public class StorageEndpoint {
 
     @Autowired
     IStorageService storageService;
+    Logger logger;
 
     @PostMapping("/Addtostorage")
     @ApiOperation(value = "créer une Population Cible", authorizations = {
@@ -26,9 +29,8 @@ public class StorageEndpoint {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object Addtostorage(HttpServletRequest request, @RequestBody @Valid MultipartFile file){
-
-        return storageService.AddtoStorage(file);
+    public Object upload(@RequestParam("file") MultipartFile multipartFile) {
+        return storageService.upload(multipartFile);
     }
 
 
@@ -40,6 +42,16 @@ public class StorageEndpoint {
             @ApiResponse(code = 404, message = "not found") })
     public Object finditembyid(HttpServletRequest request,@PathVariable("idfile") String idfile){
         return  storageService.finditembyid(idfile);
+    }
+
+    @DeleteMapping("/DeletePublicicteImage/{idPubliciteImage}")
+    @ApiOperation(value = "Supprimer une Action Marketing", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object DeleteActionMarketing(HttpServletRequest request,@PathVariable("idPubliciteImage") String idPubliciteImage) throws IOException {
+        return storageService.DeletePublicicteImage(idPubliciteImage);
     }
 
 }
