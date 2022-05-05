@@ -21,7 +21,6 @@ public class StorageEndpoint {
 
     @Autowired
     IStorageService storageService;
-    Logger logger;
 
     @PostMapping("/Addtostorage")
     @ApiOperation(value = "créer une Population Cible", authorizations = {
@@ -30,7 +29,8 @@ public class StorageEndpoint {
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
     public Object upload(@RequestParam("file") MultipartFile multipartFile) {
-        return storageService.upload(multipartFile);
+        System.out.print(multipartFile);
+        return storageService.CreateStorageItem(multipartFile);
     }
 
 
@@ -52,6 +52,16 @@ public class StorageEndpoint {
             @ApiResponse(code = 404, message = "not found") })
     public Object DeleteActionMarketing(HttpServletRequest request,@PathVariable("idPubliciteImage") String idPubliciteImage) throws IOException {
         return storageService.DeletePublicicteImage(idPubliciteImage);
+    }
+
+    @GetMapping("/findAllStorage")
+    @ApiOperation(value = "Afficher la list des Publicite ", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllPublicite(HttpServletRequest request){
+        return  storageService.findAll();
     }
 
 }

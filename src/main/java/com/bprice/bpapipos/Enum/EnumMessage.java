@@ -190,9 +190,12 @@ public enum EnumMessage {
 
 	PARTENAIREBPRICE_ID_EMPTY("id Partenaire est null",-2),
 
-	Image_added("image ajouter",1),
-	Video_added("Video ajouter",2),
-	File_added_failed("Video/Image n'a pas ajouter",3),
+	STORAGE_EMPTY("donnée fichier vide",0),
+	FILE_NAME_EMPTY("nom fichier vide",-1),
+	LIST_STORAGE_NOT_EMPTY("la list des Publicite est non vide",1),
+	LIST_STORAGE_EMPTY("la list des Publicite est vide",0),
+
+
 
 
 	;

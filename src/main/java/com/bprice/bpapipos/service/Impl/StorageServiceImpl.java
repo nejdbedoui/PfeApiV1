@@ -5,6 +5,7 @@ import com.bprice.bpapipos.Enum.EnumMessage;
 import com.bprice.bpapipos.repository.IStorageRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IStorageService;
+import com.bprice.persistance.model.Categorie;
 import com.bprice.persistance.model.Storage;
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -27,6 +28,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,11 +36,7 @@ public class StorageServiceImpl  implements IStorageService {
     @Autowired
     private IStorageRepository storageRepository;
 
-    @Autowired
-    private GridFsTemplate gridFsTemplate;
 
-    @Autowired
-    private GridFsOperations operations;
 
 
 
@@ -66,8 +64,23 @@ public class StorageServiceImpl  implements IStorageService {
 
         }
     }
-    
-    
+
+    @Override
+    public ResponseObject findAll() {
+        try {
+            List<Storage> result = storageRepository.findAll();
+            if (result != null) {
+                return new ResponseObject(EnumMessage.LIST_STORAGE_NOT_EMPTY.code, EnumMessage.LIST_STORAGE_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_STORAGE_EMPTY.code, EnumMessage.LIST_STORAGE_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
+
 
     @Override
     public String uploadFile(File file, String fileName) throws IOException {
@@ -93,26 +106,47 @@ public class StorageServiceImpl  implements IStorageService {
     public String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf("."));    }
     @Override
-    public ResponseObject upload(MultipartFile multipartFile) {
+    public ResponseObject CreateStorageItem(MultipartFile multipartFile) {
 
         try {
-            System.out.println("da5let");
-            String fileName = multipartFile.getOriginalFilename();                        // to get original file name
-            fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));  // to generated random string values for file name.
+            if (multipartFile !=null) {
+                Storage storage = new Storage();
+                if(multipartFile.getOriginalFilename()!=null) {
+                    String fileName =   multipartFile.getOriginalFilename();
+                    File file = this.convertToFile(multipartFile, fileName);
 
-            File file = this.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
-            String TEMP_URL = this.uploadFile(file, fileName);                                   // to get uploaded file link
-            file.delete();                                                                // to delete the copy of uploaded file stored in the project folder
-            return new ResponseObject(1, "Success upload", TEMP_URL);
+                    storage.setSize(file.length());
+                    storage.setName(fileName);
+                    storage.setType(multipartFile.getContentType());
+                    Storage result = storageRepository.save(storage);
+                    if(result !=null) {
+                        String TEMP_URL = this.uploadFile(file, result.getIdStorage().concat(getExtension(fileName)));
+                        result.setUrl(TEMP_URL);
+                        storageRepository.save(result);
+                        file.delete();
+                        return new ResponseObject(EnumMessage.SUCCESS_CREATION.code, EnumMessage.SUCCESS_CREATION.label, TEMP_URL);
+                    }
+                    else{
+                        return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+                    }
+                }
+                else{
+                    return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+                }
+            }
+            else{
+                return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseObject(0, "Unsuccess upload", null);
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code,  e.getMessage(), null);
         }
     }
     @Override
         public ResponseObject DeletePublicicteImage(String fileName) throws IOException {
             BlobId blobId = BlobId.of("pfe2022-fbd5d.appspot.com", fileName);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
             Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("D:/Downloads/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
             com.google.cloud.storage.Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
           boolean result=  storage.delete(blobId);
