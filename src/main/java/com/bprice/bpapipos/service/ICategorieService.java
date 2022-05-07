@@ -8,5 +8,5 @@ public interface ICategorieService {
     public ResponseObject DeleteCategorie(String Idcat);
     public ResponseObject UpdateCategorie(Categorie categorie);
     public ResponseObject findByIdCategorie(String Idcat);
-    public ResponseObject findAll();
+    public ResponseObject findAllByIdCategorieNot(String id);
 }

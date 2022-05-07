@@ -26,6 +26,7 @@ public class CategorieServiceImpl implements ICategorieService {
 
 
                         Categorie result = categorieRepository.save(categorie);
+
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
 
@@ -66,7 +67,7 @@ public class CategorieServiceImpl implements ICategorieService {
     public ResponseObject UpdateCategorie(Categorie categorie) {
         try {
             if (categorie != null) {
-                if (categorieRepository.existsById(categorie.getIdCategorie())) {
+                if (categorieRepository.existsById(categorie.getIdClientType())) {
 
 
                             Categorie result = categorieRepository.save(categorie);
@@ -94,7 +95,7 @@ public class CategorieServiceImpl implements ICategorieService {
     public ResponseObject findByIdCategorie(String IdCat) {
         try {
             if (IdCat != null) {
-                Categorie result = categorieRepository.findCategorieByIdCategorie(IdCat);
+                Categorie result = categorieRepository.findCategorieByIdClientType(IdCat);
                 if (result != null) {
                     return new ResponseObject(EnumMessage.CATEGORIE_EXIST.code, EnumMessage.CATEGORIE_EXIST.label, result);
                 } else {
@@ -114,11 +115,10 @@ public class CategorieServiceImpl implements ICategorieService {
 
 
 
-
     @Override
-    public ResponseObject findAll() {
+    public ResponseObject findAllByIdCategorieNot(String id) {
         try {
-            List<Categorie> result = categorieRepository.findAll();
+            List<Categorie> result = categorieRepository.findAllByIdClientTypeNot(id);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_CATEGORIE_NOT_EMPTY.code, EnumMessage.LIST_CATEGORIE_NOT_EMPTY.label,
                         result);

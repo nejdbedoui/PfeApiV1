@@ -1,5 +1,6 @@
 package com.bprice.bpapipos.EndPoint;
 
+import com.bprice.bpapipos.repository.IActionMarketingRepository;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.persistance.model.ActionMarketing;
 import com.bprice.persistance.model.DateRange;
@@ -22,6 +23,8 @@ public class ActionMarketingEndPoint {
 
 @Autowired
 IActionMarketingService actionMarketingService;
+@Autowired
+IActionMarketingRepository actionMarketingRepository;
 
     @PostMapping("/CreateActionMarketing")
     @ApiOperation(value = "créer une Action Marketing", authorizations = {
@@ -30,6 +33,7 @@ IActionMarketingService actionMarketingService;
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
     public Object CreateActionMarketing(HttpServletRequest request, @RequestBody @Valid ActionMarketing actionMarketing){
+        System.out.println(actionMarketing);
         return actionMarketingService.CreateActionMarketing(actionMarketing);
     }
 
@@ -103,6 +107,28 @@ IActionMarketingService actionMarketingService;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingByDateCreationRangeAndIdPartenaire(HttpServletRequest request, @PathVariable("idPartenaire") String idPartenaire, @RequestBody @Valid DateRange dateRange){
         return  actionMarketingService.findAllByIdPartenaireAndDateCreation(idPartenaire,dateRange.getDateDebut(),dateRange.getDateFin());
+    }
+
+    @GetMapping("/findAllActionMarketingDTO")
+    @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllActionMarketingDTO(HttpServletRequest request){
+
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAll());
+    }
+
+    @GetMapping("/findAllActionMarketingDTOByIdPartenaire/{idPartenaire}")
+    @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllActionMarketingDTOByIdPartenaire(HttpServletRequest request,@PathVariable("idPartenaire") String idPartenaire){
+
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdPartenaire(idPartenaire));
     }
 
 

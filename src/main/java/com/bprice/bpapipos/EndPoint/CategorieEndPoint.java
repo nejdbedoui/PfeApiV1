@@ -68,13 +68,13 @@ public class CategorieEndPoint {
 
 
 
-    @GetMapping("/findAllCategorie")
+    @GetMapping("/findAllCategorieExept/{idCategorie}")
     @ApiOperation(value = "Afficher la list des Categories ", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllCategorie(HttpServletRequest request){
-        return  categorieService.findAll();
+    public Object findAllCategorieExept(HttpServletRequest request,@PathVariable("idCategorie") String idCategorie){
+        return  categorieService.findAllByIdCategorieNot(idCategorie);
     }
 }

@@ -4,6 +4,7 @@ import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.persistance.model.ActionMarketing;
 
 import java.util.Date;
+import java.util.List;
 
 public interface IActionMarketingService {
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing);
@@ -14,4 +15,6 @@ public interface IActionMarketingService {
     public ResponseObject findAllByDateCreation(Date DateDebut, Date DateFin);
     public ResponseObject findAllByIdPartenaire(String IdPartenaire);
     public ResponseObject findAll();
+
+    public ResponseObject entityToDto(List<ActionMarketing> actionMarketings);
 }

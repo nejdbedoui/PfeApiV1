@@ -11,10 +11,31 @@ import java.util.Date;
 public class ActionMarketingDTO {
     private String idActionMarketing;
     private String url;
+    private int canal;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreation;
+    private int statut;
+    private String type;
+
+    public int getCanal() {
+        return canal;
+    }
+
+    public void setCanal(int canal) {
+        this.canal = canal;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getIdActionMarketing() {
         return idActionMarketing;
@@ -64,7 +85,5 @@ public class ActionMarketingDTO {
         this.dateCreation = dateCreation;
     }
 
-    private int statut;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
+
 }

@@ -1,19 +1,23 @@
 package com.bprice.bpapipos.service.Impl;
 
 import com.bprice.bpapipos.Enum.EnumMessage;
+import com.bprice.bpapipos.dto.ActionMarketingDTO;
 import com.bprice.bpapipos.repository.IActionMarketingRepository;
 import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
+import com.bprice.bpapipos.repository.IStorageRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
 import com.bprice.persistance.model.ActionMarketing;
-import com.bprice.persistance.model.ModeReglement;
 import com.bprice.persistance.model.PartenaireBprice;
+import com.bprice.persistance.model.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Autowired
@@ -22,6 +26,8 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IPartenaireBpriceService partenaireBpriceService;
     @Autowired
     IActionMarketingRepository actionMarketingRepository;
+    @Autowired
+    IStorageRepository storageRepository;
 
     @Override
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing) {
@@ -137,7 +143,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Override
     public ResponseObject findAllByIdPartenaireAndDateCreation(String IdPartenaire, Date DateDebut, Date DateFin) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findActionMarketingByIdPartenaireAndDateCreationBetween(IdPartenaire,DateDebut,DateFin);
+            List<ActionMarketing> result = actionMarketingRepository.findAllActionMarketingByIdPartenaireAndDateCreationBetween(IdPartenaire,DateDebut,DateFin);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -196,5 +202,27 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
         }
+    }
+
+
+    public ActionMarketingDTO entityToDto(ActionMarketing actionMarketing){
+        ActionMarketingDTO action=new ActionMarketingDTO();
+        action.setIdActionMarketing(actionMarketing.getIdActionMarketing());
+        action.setDateDebut(actionMarketing.getDateDebut());
+        action.setDateFin(actionMarketing.getDateFin());
+        action.setDateCreation(actionMarketing.getDateCreation());
+        action.setStatut(actionMarketing.getStatut());
+        action.setCanal(actionMarketing.getLibelleCanalDiffusion());
+        Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
+        action.setUrl(storage.getUrl());
+        action.setType(storage.getType());
+        return action;
+    }
+
+
+    @Override
+    public ResponseObject entityToDto(List<ActionMarketing> actionMarketings){
+        return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
+                actionMarketings.stream().map(x -> entityToDto(x)).collect(Collectors.toList()));
     }
 }

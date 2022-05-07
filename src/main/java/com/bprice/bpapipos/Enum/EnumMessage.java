@@ -196,8 +196,21 @@ public enum EnumMessage {
 	LIST_STORAGE_EMPTY("la list des Publicite est vide",0),
 
 
+	CANALEDIFFUSION_EMPTY("Canal de diffusion vide",0),
+	CANALEDIFFUSION_ID_EMPTY("id Canal de diffusion est null",-2),
+	CANALEDIFFUSION_NOT_EXIST("Canal de diffusion n'exist pas",-5),
+	CANALEDIFFUSION_EXIST("le Canal de diffusion exist",1),
+	LIST_CANALEDIFFUSION_NOT_EMPTY("la list des Canals de diffusions est non vide",1),
+	LIST_CANALEDIFFUSION_EMPTY("la list des Canals de diffusions est vide",0),
 
 
+
+	FORMATAFFICHAGE_EMPTY("Format d'affiche vide",0),
+	FORMATAFFICHAGE_ID_EMPTY("id Format d'affiche est null",-2),
+	FORMATAFFICHAGE_NOT_EXIST("Format d'affiche n'exist pas",-5),
+	FORMATAFFICHAGE_EXIST("le Format d'affiche exist",1),
+	LIST_FORMATAFFICHAGE_NOT_EMPTY("la list des Formats d'affiches est non vide",1),
+	LIST_FORMATAFFICHAGE_EMPTY("la list des Formats d'affiches est vide",0),
 	;
 
 	private static final Map<Integer, EnumMessage> BY_CODE = new HashMap<>();

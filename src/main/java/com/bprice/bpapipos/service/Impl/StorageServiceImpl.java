@@ -86,7 +86,7 @@ public class StorageServiceImpl  implements IStorageService {
     public String uploadFile(File file, String fileName) throws IOException {
         BlobId blobId = BlobId.of("pfe2022-fbd5d.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("D:/Downloads/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("E:/Users/nabil.NEJD23/Desktop/stage$/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
         com.google.cloud.storage.Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/pfe2022-fbd5d.appspot.com/o/%s?alt=media", URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)));
@@ -124,7 +124,7 @@ public class StorageServiceImpl  implements IStorageService {
                         result.setUrl(TEMP_URL);
                         storageRepository.save(result);
                         file.delete();
-                        return new ResponseObject(EnumMessage.SUCCESS_CREATION.code, EnumMessage.SUCCESS_CREATION.label, TEMP_URL);
+                        return new ResponseObject(EnumMessage.SUCCESS_CREATION.code, EnumMessage.SUCCESS_CREATION.label, result);
                     }
                     else{
                         return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
@@ -147,7 +147,7 @@ public class StorageServiceImpl  implements IStorageService {
     @Override
         public ResponseObject DeletePublicicteImage(String fileName) throws IOException {
             BlobId blobId = BlobId.of("pfe2022-fbd5d.appspot.com", fileName);
-            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("D:/Downloads/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("E:/Users/nabil.NEJD23/Desktop/stage$/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
             com.google.cloud.storage.Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
           boolean result=  storage.delete(blobId);
 
