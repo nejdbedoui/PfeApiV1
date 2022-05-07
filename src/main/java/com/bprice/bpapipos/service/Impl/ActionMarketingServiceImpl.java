@@ -3,12 +3,14 @@ package com.bprice.bpapipos.service.Impl;
 import com.bprice.bpapipos.Enum.EnumMessage;
 import com.bprice.bpapipos.dto.ActionMarketingDTO;
 import com.bprice.bpapipos.repository.IActionMarketingRepository;
+import com.bprice.bpapipos.repository.ICanalDiffusionRepository;
 import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
 import com.bprice.bpapipos.repository.IStorageRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
 import com.bprice.persistance.model.ActionMarketing;
+import com.bprice.persistance.model.CanalDiffusion;
 import com.bprice.persistance.model.PartenaireBprice;
 import com.bprice.persistance.model.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,8 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
-
+@Autowired
+ICanalDiffusionRepository iCanalDiffusionRepository;
     @Override
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing) {
         try {
@@ -212,7 +215,9 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
         action.setDateFin(actionMarketing.getDateFin());
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
-        action.setCanal(actionMarketing.getLibelleCanalDiffusion());
+
+        CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
+        action.setCanal(canal.getLibelle());
         Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
         action.setUrl(storage.getUrl());
         action.setType(storage.getType());
