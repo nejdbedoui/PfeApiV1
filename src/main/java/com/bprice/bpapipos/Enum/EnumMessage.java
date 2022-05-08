@@ -211,6 +211,10 @@ public enum EnumMessage {
 	FORMATAFFICHAGE_EXIST("le Format d'affiche exist",1),
 	LIST_FORMATAFFICHAGE_NOT_EMPTY("la list des Formats d'affiches est non vide",1),
 	LIST_FORMATAFFICHAGE_EMPTY("la list des Formats d'affiches est vide",0),
+
+	CONTRACT_EMPTY("id Action Vide",0),
+	LIST_CONTRACT_NOT_EMPTY("la list des CONTRACT est non vide",1),
+	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
 	;
 
 	private static final Map<Integer, EnumMessage> BY_CODE = new HashMap<>();

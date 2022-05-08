@@ -208,6 +208,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
     }
 
 
+
     public ActionMarketingDTO entityToDto(ActionMarketing actionMarketing){
         ActionMarketingDTO action=new ActionMarketingDTO();
         action.setIdActionMarketing(actionMarketing.getIdActionMarketing());
@@ -216,8 +217,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
 
-        CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
-        action.setCanal(canal.getLibelle());
+
         Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
         action.setUrl(storage.getUrl());
         action.setType(storage.getType());
