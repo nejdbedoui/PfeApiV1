@@ -218,6 +218,11 @@ public enum EnumMessage {
 	LIST_VILLE_NOT_EMPTY("la list des villes est non vide",1),
 	LIST_VILLE_EMPTY("la list des villes est vide",0)
 
+
+	CONTRACT_EMPTY("id Action Vide",0),
+	LIST_CONTRACT_NOT_EMPTY("la list des CONTRACT est non vide",1),
+	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
+
 	;
 
 	private static final Map<Integer, EnumMessage> BY_CODE = new HashMap<>();
