@@ -5,10 +5,7 @@ import com.bprice.bpapipos.repository.IPopulationCibleRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPopulationCibleService;
-import com.bprice.persistance.model.ActionMarketing;
-import com.bprice.persistance.model.Categorie;
 import com.bprice.persistance.model.PopulationCible;
-import com.sun.org.apache.bcel.internal.generic.POP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

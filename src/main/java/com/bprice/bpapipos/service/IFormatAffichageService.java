@@ -9,5 +9,5 @@ public interface IFormatAffichageService {
     public ResponseObject createformat(FormatAffichage formatAffichage);
     public ResponseObject updateformat(FormatAffichage formatAffichage);
     public ResponseObject deleteformat(String id);
-    public ResponseObject findAllActiveformat();
+    public ResponseObject findAllActiveformat(String type);
 }

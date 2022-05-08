@@ -10,6 +10,8 @@ import java.util.List;
 public interface IActionMarketingRepository extends MongoRepository<ActionMarketing,String> {
     public List<ActionMarketing> findAllByIdPartenaire(String IdPartenaire);
     public List<ActionMarketing> findAll();
+    public List<ActionMarketing> findAllByStatut(int statut);
+    public List<ActionMarketing> findAllByStatutGreaterThan(int statut);
     public ActionMarketing findActionMarketingByIdActionMarketing(String IdAction);
     public List<ActionMarketing> findAllActionMarketingByIdPartenaireAndDateCreationBetween(String IdPartenaire,Date DateDebut,Date DateFin);
     public List<ActionMarketing> findActionMarketingByDateCreationBetween(Date DateDebut,Date DateFin);
