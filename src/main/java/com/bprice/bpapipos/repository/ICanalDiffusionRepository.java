@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ICanalDiffusionRepository  extends MongoRepository<CanalDiffusion,String> {
     public List<CanalDiffusion> findAll();
-    public List<CanalDiffusion> findAllByFActifNot(int active);
+    public List<CanalDiffusion> findAllByFActifEquals(int active);
 }

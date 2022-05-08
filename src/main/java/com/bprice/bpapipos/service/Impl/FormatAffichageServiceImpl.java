@@ -103,9 +103,9 @@ public class FormatAffichageServiceImpl implements IFormatAffichageService {
     }
 
     @Override
-    public ResponseObject findAllActiveformat() {
+    public ResponseObject findAllActiveformat(String type) {
         try {
-            List<FormatAffichage> result = iFormatAffichageRepository.findAllByFActifNot(1);
+            List<FormatAffichage> result = iFormatAffichageRepository.findAllByTypeAndFActifEquals(type,1);
             if (result.size() >0) {
                 return new ResponseObject(EnumMessage.LIST_FORMATAFFICHAGE_NOT_EMPTY.code, EnumMessage.LIST_FORMATAFFICHAGE_NOT_EMPTY.label,
                         result);

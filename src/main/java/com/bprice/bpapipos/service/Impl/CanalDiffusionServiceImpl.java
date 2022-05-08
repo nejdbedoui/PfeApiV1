@@ -105,7 +105,7 @@ public class CanalDiffusionServiceImpl implements ICanalDiffusionService {
     @Override
     public ResponseObject findAllActiveCanal() {
         try {
-            List<CanalDiffusion> result = canalDiffusionRepository.findAllByFActifNot(1);
+            List<CanalDiffusion> result = canalDiffusionRepository.findAllByFActifEquals(1);
             if (result.size() >0) {
                 return new ResponseObject(EnumMessage.LIST_CANALEDIFFUSION_NOT_EMPTY.code, EnumMessage.LIST_CANALEDIFFUSION_NOT_EMPTY.label,
                         result);

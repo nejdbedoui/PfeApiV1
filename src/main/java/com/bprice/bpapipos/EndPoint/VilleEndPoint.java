@@ -1,8 +1,7 @@
 package com.bprice.bpapipos.EndPoint;
 
-import com.bprice.bpapipos.service.IFormatAffichageService;
-import com.bprice.persistance.model.CanalDiffusion;
-import com.bprice.persistance.model.FormatAffichage;
+import com.bprice.bpapipos.service.IVilleService;
+import com.bprice.persistance.model.Ville;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,58 +15,58 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/v1")
-public class FormatAffichageEndPoint {
+public class VilleEndPoint {
     @Autowired
-    IFormatAffichageService iFormatAffichageService;
+    IVilleService iVilleService;
 
-    @PostMapping("/createformat")
-    @ApiOperation(value = "créer un format d'affichage", authorizations = {
+    @PostMapping("/createVille")
+    @ApiOperation(value = "créer une Canal", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object createformat(HttpServletRequest request, @RequestBody @Valid FormatAffichage Format){
-        return iFormatAffichageService.createformat(Format);
+    public Object createVille(HttpServletRequest request, @RequestBody @Valid Ville ville){
+        return iVilleService.createVille(ville);
     }
 
-    @DeleteMapping("/deleteformat/{idCanal}")
-    @ApiOperation(value = "Supprimer un format d'affichage", authorizations = {
+    @DeleteMapping("/deleteVille/{idCanal}")
+    @ApiOperation(value = "Supprimer une Canal", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object deleteformat(HttpServletRequest request,@PathVariable("idCanal") String idFormat){
-        return iFormatAffichageService.deleteformat(idFormat);
+    public Object deleteVille(HttpServletRequest request,@PathVariable("idCanal") String idville){
+        return iVilleService.deleteVille(idville);
     }
 
-    @PutMapping("/updateformat")
-    @ApiOperation(value = "Modifier un format d'affichage", authorizations = {
+    @PutMapping("/updateVille")
+    @ApiOperation(value = "Modifier une Canal", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object updateformat(HttpServletRequest request,@RequestBody @Valid FormatAffichage Format){
-        return iFormatAffichageService.updateformat(Format);
+    public Object updateVille(HttpServletRequest request,@RequestBody @Valid Ville ville){
+        return iVilleService.updateVille(ville);
     }
 
-    @GetMapping("/findAllformat")
-    @ApiOperation(value = "Afficher la list des formats ", authorizations = {
+
+    @GetMapping("/findAllVille")
+    @ApiOperation(value = "Afficher la list des Canal ", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllformat(HttpServletRequest request){
-        return  iFormatAffichageService.findAllformat();
+    public Object findAllVille(HttpServletRequest request){
+        return  iVilleService.findAllVille();
     }
 
-    @GetMapping("/findAllActiveformat/{type}")
-    @ApiOperation(value = "Afficher la list des formats active ", authorizations = {
+    @GetMapping("/findAllActiveVille")
+    @ApiOperation(value = "Afficher la list des Canal active ", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllActiveformat(HttpServletRequest request,@PathVariable("type") String type){
-        return  iFormatAffichageService.findAllActiveformat(type);
+    public Object findAllActiveVille(HttpServletRequest request){
+        return  iVilleService.findAllActiveVille();
     }
-
 }
