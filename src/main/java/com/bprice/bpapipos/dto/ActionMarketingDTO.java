@@ -16,10 +16,46 @@ public class ActionMarketingDTO {
     private Date dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
+    private String smsBody;
+    private String titre;
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
+
+    public int getTypeitem() {
+        return typeitem;
+    }
+
+    public void setTypeitem(int typeitem) {
+        this.typeitem = typeitem;
+    }
+    public void setSmsBody(String smsBody){
+        this.smsBody = smsBody;
+    }
+    public String getSmsBody(){
+        return smsBody;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
     private int statut;
     private String type;
+    private int typeitem;
 
     public String getCanal() {
         return canal;
