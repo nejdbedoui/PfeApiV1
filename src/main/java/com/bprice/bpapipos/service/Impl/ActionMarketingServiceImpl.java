@@ -216,11 +216,15 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateFin(actionMarketing.getDateFin());
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
+        CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
+        action.setCanal(canal.getLibelle());
+        if(actionMarketing.getIdStorage() != null){
+            Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
+            action.setUrl(storage.getUrl());
+            action.setType(storage.getType());
+            action.setTypeitem(actionMarketing.getTypeContenue());
+        }
 
-
-        Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
-        action.setUrl(storage.getUrl());
-        action.setType(storage.getType());
         return action;
     }
 

@@ -26,8 +26,9 @@ public class PopulationCibleEndPoint {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object CreatePopulationCible(HttpServletRequest request, @RequestBody @Valid PopulationCible PopulationCible){
-        return populationCibleService.CreatePopulationCible(PopulationCible);
+    public Object CreatePopulationCible(HttpServletRequest request, @RequestBody @Valid PopulationCible populationCible){
+        System.out.println(populationCible);
+        return populationCibleService.CreatePopulationCible(populationCible);
     }
 
     @DeleteMapping("/DeletePopulationCible/{idPopulationCible}")
