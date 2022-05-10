@@ -232,6 +232,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateFin(actionMarketing.getDateFin());
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
+
         action.setDescription(actionMarketing.getDescription());
         action.setTitre(actionMarketing.getTitre());
         CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
@@ -246,6 +247,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
             action.setSmsBody(actionMarketing.getSmsBody());
         }
         action.setTypeitem(actionMarketing.getTypeContenue());
+
         return action;
     }
 

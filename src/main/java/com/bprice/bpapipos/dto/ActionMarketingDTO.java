@@ -16,6 +16,7 @@ public class ActionMarketingDTO {
     private Date dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
+
     private String smsBody;
     private String titre;
 
@@ -37,6 +38,7 @@ public class ActionMarketingDTO {
 
     private String description;
 
+
     public int getTypeitem() {
         return typeitem;
     }
@@ -44,6 +46,7 @@ public class ActionMarketingDTO {
     public void setTypeitem(int typeitem) {
         this.typeitem = typeitem;
     }
+
     public void setSmsBody(String smsBody){
         this.smsBody = smsBody;
     }
