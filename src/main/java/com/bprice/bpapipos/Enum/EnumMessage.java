@@ -216,7 +216,7 @@ public enum EnumMessage {
 	VILLE_ID_EMPTY("id ville est null",-2),
 	VILLE_EXIST("la ville exist",1),
 	LIST_VILLE_NOT_EMPTY("la list des villes est non vide",1),
-	LIST_VILLE_EMPTY("la list des villes est vide",0)
+	LIST_VILLE_EMPTY("la list des villes est vide",0),
 
 
 	CONTRACT_EMPTY("id Action Vide",0),

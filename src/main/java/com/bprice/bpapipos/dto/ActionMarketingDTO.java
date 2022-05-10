@@ -16,10 +16,20 @@ public class ActionMarketingDTO {
     private Date dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
+
+    public int getTypeitem() {
+        return typeitem;
+    }
+
+    public void setTypeitem(int typeitem) {
+        this.typeitem = typeitem;
+    }
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
     private int statut;
     private String type;
+    private int typeitem;
 
     public String getCanal() {
         return canal;
