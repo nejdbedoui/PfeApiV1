@@ -192,6 +192,22 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
     }
 
     @Override
+    public ResponseObject findAllByIdCanalDiffusion(String idCanal) {
+        try {
+            List<ActionMarketing> result = actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThan(idCanal,0);
+            if (result.size() >0) {
+                return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
+
+    @Override
     public ResponseObject findAll() {
         try {
             List<ActionMarketing> result = actionMarketingRepository.findAll();
@@ -216,14 +232,21 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateFin(actionMarketing.getDateFin());
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
+
+        action.setDescription(actionMarketing.getDescription());
+        action.setTitre(actionMarketing.getTitre());
         CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
         action.setCanal(canal.getLibelle());
-        if(actionMarketing.getIdStorage() != null){
-            Storage storage=storageRepository.findByIdStorage(actionMarketing.getIdStorage());
+        if (actionMarketing.getIdStorage()!=null) {
+            Storage storage = storageRepository.findByIdStorage(actionMarketing.getIdStorage());
             action.setUrl(storage.getUrl());
+
             action.setType(storage.getType());
-            action.setTypeitem(actionMarketing.getTypeContenue());
         }
+        if(actionMarketing.getSmsBody()!=null){
+            action.setSmsBody(actionMarketing.getSmsBody());
+        }
+        action.setTypeitem(actionMarketing.getTypeContenue());
 
         return action;
     }
