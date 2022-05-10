@@ -117,4 +117,20 @@ public class CanalDiffusionServiceImpl implements ICanalDiffusionService {
 
         }
     }
+
+    @Override
+    public ResponseObject findCanalBylibelle(String libelle) {
+        try {
+            CanalDiffusion result = canalDiffusionRepository.findCanalDiffusionByLibelle(libelle);
+            if (result!=null) {
+                return new ResponseObject(EnumMessage.LIST_CANALEDIFFUSION_NOT_EMPTY.code, EnumMessage.LIST_CANALEDIFFUSION_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_CANALEDIFFUSION_EMPTY.code, EnumMessage.LIST_CANALEDIFFUSION_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
 }

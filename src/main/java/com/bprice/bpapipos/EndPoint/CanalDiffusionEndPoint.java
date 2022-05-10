@@ -70,4 +70,14 @@ public class CanalDiffusionEndPoint {
     public Object findAllActiveCanal(HttpServletRequest request){
         return  iCanalDiffusionService.findAllActiveCanal();
     }
+
+    @GetMapping("/findCanalByLibelle/{libelleCanal}")
+    @ApiOperation(value = "Retourner canal de meme libelle", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findCanalByLibelle(HttpServletRequest request, @PathVariable("libelleCanal") String libelleCanal){
+        return  iCanalDiffusionService.findCanalBylibelle(libelleCanal);
+    }
 }
