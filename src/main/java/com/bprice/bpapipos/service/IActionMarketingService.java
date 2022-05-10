@@ -14,9 +14,7 @@ public interface IActionMarketingService {
     public ResponseObject findAllByIdPartenaireAndDateCreation(String IdPartenaire,Date DateDebut,Date DateFin);
     public ResponseObject findAllByDateCreation(Date DateDebut, Date DateFin);
     public ResponseObject findAllByIdPartenaire(String IdPartenaire);
-    public ResponseObject findAllByIdCanalDiffusion(String idCanal);
     public ResponseObject findAll();
-
 
     public ResponseObject entityToDto(List<ActionMarketing> actionMarketings);
 }

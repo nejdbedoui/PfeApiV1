@@ -153,17 +153,6 @@ IActionMarketingRepository actionMarketingRepository;
         return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutGreaterThan(statut));
     }
 
-    @GetMapping("/findAllActionMarketingByIdCanalDiffusionDTO/{idCanal}")
-    @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
-            @Authorization(value = "Bearer") }, response = Object.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "not found") })
-    public Object findAllActionMarketingByIdCanalDiffusionDTO(HttpServletRequest request,@PathVariable("idCanal") String idCanal){
-
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThan(idCanal,0));
-    }
-
 
 
 }
