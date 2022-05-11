@@ -51,7 +51,7 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
                 FormatAffichage formatAffichage = iFormatAffichageRepository.findById(actionMarketing.getIdFormatAffichage()).orElse(null);
                 details.setUrlmedia(storage.getUrl());
                 details.setNamefile(storage.getName());
-                details.setTypefile(storage.getType());
+                details.setTypefile(actionMarketing.getTypeContenue());
                 details.setFormataffichage(formatAffichage.getLibelle());
             }
 
