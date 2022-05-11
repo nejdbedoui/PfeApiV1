@@ -15,5 +15,6 @@ public interface IPointVenteRepository extends MongoRepository<PointVente,String
     public List<PointVente> findAllByFActif(short fActif);
     public List<PointVente> findAllByIdPartenaire(String idPartenaireBprice);
     public List<PointVente> findAllByIdPartenaireAndFActif(String idPartenaireBprice, short fActif);
+    public List<PointVente> findAllByIdPartenaireAndFActifAndTypePv(String idPartenaireBprice, short fActif,String typepv);
 
 }
