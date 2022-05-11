@@ -2,6 +2,7 @@ package com.bprice.bpapipos.service;
 
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.persistance.model.PartenaireBprice;
+import com.bprice.persistance.model.PointVente;
 
 import java.util.List;
 
@@ -19,6 +20,11 @@ public interface IPartenaireBpriceService {
    // public ResponseObject findAllByIdSector(String idSector);
     public ResponseObject findAllByIdVille(String idVille);
     //public ResponseObject findAllByIdSectorAndFActif(String idSector,Short factif);
+
     public ResponseObject findAllByIdVilleAndFActif(String idVille, Short factif) ;
+
+
+
+    public ResponseObject entityToDto(Short factif);
 
 }

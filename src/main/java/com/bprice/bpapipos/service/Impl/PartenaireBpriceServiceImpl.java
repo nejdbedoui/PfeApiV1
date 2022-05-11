@@ -2,14 +2,19 @@ package com.bprice.bpapipos.service.Impl;
 
 
 import com.bprice.bpapipos.Enum.EnumMessage;
+import com.bprice.bpapipos.dto.ActionMarketingDTO;
+import com.bprice.bpapipos.dto.PointeVentePartenaireDTO;
 import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
+import com.bprice.bpapipos.repository.IPointVenteRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
-import com.bprice.persistance.model.PartenaireBprice;
+import com.bprice.persistance.model.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by ahmed on 18/01/2020.
@@ -19,6 +24,8 @@ public class PartenaireBpriceServiceImpl implements IPartenaireBpriceService {
 
     @Autowired
     private IPartenaireBpriceRepository partenaireBpriceRepository;
+    @Autowired
+    IPointVenteRepository pointVenteRepository;
     @Override
     public ResponseObject CreatePartenaireBprice(PartenaireBprice partenaireBprice) {
         try {
@@ -204,6 +211,50 @@ public class PartenaireBpriceServiceImpl implements IPartenaireBpriceService {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
 
         }
+    }
+
+
+
+    public PointeVentePartenaireDTO entityToDto( PartenaireBprice partenaireBprice){
+PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO();
+        pointeVentePartenaireDTO.setIdPartenaire(partenaireBprice.getIdPartenaire());
+        pointeVentePartenaireDTO.setAbbreviation(partenaireBprice.getAbbreviation());
+        pointeVentePartenaireDTO.setAdresse(partenaireBprice.getAdresse());
+
+     List<PointVente> listePointVente = pointVenteRepository.findAllByIdPartenaireAndFActifAndTypePv(partenaireBprice.getIdPartenaire(),(short) 1,"pointVente");
+
+     if(listePointVente.size()>0){
+         pointeVentePartenaireDTO.setListePointVente(listePointVente);
+     }
+
+
+
+
+            return pointeVentePartenaireDTO;
+
+    }
+
+
+    @Override
+    public ResponseObject entityToDto(Short factif) {
+        try {
+            if(factif!=null){
+                List<PartenaireBprice> partenaireBprices=partenaireBpriceRepository.findAllByFActif(factif);
+                if(partenaireBprices.size()>0){
+                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, partenaireBprices.stream().map(x -> entityToDto(x)).collect(Collectors.toList()));
+                }else{
+                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.label, null);
+                }            }else{
+                return new ResponseObject(EnumMessage.PARAMETRE_EMPTY.code, EnumMessage.PARAMETRE_EMPTY.label, null);
+
+            }
+        }catch (Exception e){
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+
+
+
     }
 
 }

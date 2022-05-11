@@ -232,6 +232,10 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
 
+        PartenaireBprice partenaireBprice = partenaireBpriceRepository.findByIdPartenaire(actionMarketing.getIdPartenaire());
+
+        action.setNomPartenaire(partenaireBprice.getAbbreviation());
+
         action.setDescription(actionMarketing.getDescription());
         action.setTitre(actionMarketing.getTitre());
         CanalDiffusion canal=iCanalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
