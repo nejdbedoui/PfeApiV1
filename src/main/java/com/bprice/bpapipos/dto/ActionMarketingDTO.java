@@ -19,6 +19,15 @@ public class ActionMarketingDTO {
 
     private String smsBody;
     private String titre;
+    private String nomPartenaire;
+
+    public String getNomPartenaire() {
+        return nomPartenaire;
+    }
+
+    public void setNomPartenaire(String nomPartenaire) {
+        this.nomPartenaire = nomPartenaire;
+    }
 
     public String getTitre() {
         return titre;
