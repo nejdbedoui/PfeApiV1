@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ActionMarketingServiceImpl implements IActionMarketingService {
-    @Autowired
-    IPartenaireBpriceRepository partenaireBpriceRepository;
+
     @Autowired
     IPartenaireBpriceService partenaireBpriceService;
     @Autowired

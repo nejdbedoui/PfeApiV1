@@ -16,9 +16,14 @@ public class ActionMarketingDTO {
     private Date dateDebut;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreation;
+    private int statut;
+    private String type;
+    private int typeitem;
     private String smsBody;
     private String titre;
+
     private String nomPartenaire;
 
     public String getNomPartenaire() {
@@ -28,6 +33,11 @@ public class ActionMarketingDTO {
     public void setNomPartenaire(String nomPartenaire) {
         this.nomPartenaire = nomPartenaire;
     }
+
+    private String description;
+
+
+
 
     public String getTitre() {
         return titre;
@@ -45,7 +55,7 @@ public class ActionMarketingDTO {
         this.description = description;
     }
 
-    private String description;
+
 
 
     public int getTypeitem() {
@@ -63,11 +73,7 @@ public class ActionMarketingDTO {
         return smsBody;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCreation;
-    private int statut;
-    private String type;
-    private int typeitem;
+
 
     public String getCanal() {
         return canal;
