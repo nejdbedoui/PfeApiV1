@@ -19,5 +19,6 @@ public interface IPartenaireBpriceService {
    // public ResponseObject findAllByIdSector(String idSector);
     public ResponseObject findAllByIdVille(String idVille);
     //public ResponseObject findAllByIdSectorAndFActif(String idSector,Short factif);
-    public ResponseObject findAllByIdVilleAndFActif(String idVille, Short factif);
+    public ResponseObject findAllByIdVilleAndFActif(String idVille, Short factif) ;
+
 }

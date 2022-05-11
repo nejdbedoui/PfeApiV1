@@ -8,7 +8,7 @@ public class DetailsActionDTO {
     private int sexe;//h,f,h-f
     private List<String> ville;
     private String namefile;
-    private String typefile;
+    private int typefile;
     private String urlmedia;
     private String canaldifusion;
     private String formataffichage;
@@ -53,11 +53,11 @@ public class DetailsActionDTO {
         this.namefile = namefile;
     }
 
-    public String getTypefile() {
+    public int getTypefile() {
         return typefile;
     }
 
-    public void setTypefile(String typefile) {
+    public void setTypefile(int typefile) {
         this.typefile = typefile;
     }
 
