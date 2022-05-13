@@ -26,6 +26,8 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Autowired
     IPartenaireBpriceService partenaireBpriceService;
     @Autowired
+    IPartenaireBpriceRepository partenaireBpriceRepository;
+    @Autowired
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
