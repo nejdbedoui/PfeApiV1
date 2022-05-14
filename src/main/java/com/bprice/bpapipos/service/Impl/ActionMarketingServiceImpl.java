@@ -31,6 +31,7 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IStorageRepository storageRepository;
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
+IPartenaireBpriceRepository partenaireBpriceRepository;
     @Override
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing) {
         try {
@@ -224,7 +225,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
 
 
 
-    public ActionMarketingDTO entityToDto(ActionMarketing actionMarketing){
+    public ActionMarketingDTO entityToOneDto(ActionMarketing actionMarketing){
         ActionMarketingDTO action=new ActionMarketingDTO();
         action.setIdActionMarketing(actionMarketing.getIdActionMarketing());
         action.setDateDebut(actionMarketing.getDateDebut());
@@ -232,9 +233,11 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
 
-        PartenaireBprice partenaireBprice = partenaireBpriceRepository.findByIdPartenaire(actionMarketing.getIdPartenaire());
-
-        action.setNomPartenaire(partenaireBprice.getAbbreviation());
+        PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(actionMarketing.getIdPartenaire())
+                .getObjectResponse();
+            if(partenaireBprice!=null) {
+                action.setNomPartenaire(partenaireBprice.getAbbreviation());
+            }
 
         action.setDescription(actionMarketing.getDescription());
         action.setTitre(actionMarketing.getTitre());
@@ -258,6 +261,25 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
     @Override
     public ResponseObject entityToDto(List<ActionMarketing> actionMarketings){
         return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
-                actionMarketings.stream().map(x -> entityToDto(x)).collect(Collectors.toList()));
+                actionMarketings.stream().map(x -> entityToOneDto(x)).collect(Collectors.toList()));
+    }
+    public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut){
+        try {
+            if(statut!=null){
+                List<ActionMarketing> actionMarketings=actionMarketingRepository.findAllByStatut(statut);
+                if(actionMarketings.size()>0){
+                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, actionMarketings.stream().map(x -> entityToOneDto(x)).collect(Collectors.toList()));
+                }else{
+                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.label, null);
+                }            }else{
+                return new ResponseObject(EnumMessage.PARAMETRE_EMPTY.code, EnumMessage.PARAMETRE_EMPTY.label, null);
+
+            }
+        }catch (Exception e){
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, e);
+
+        }
+
+
     }
 }
