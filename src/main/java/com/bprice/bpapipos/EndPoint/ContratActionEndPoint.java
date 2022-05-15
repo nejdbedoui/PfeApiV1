@@ -3,6 +3,7 @@ package com.bprice.bpapipos.EndPoint;
 import com.bprice.bpapipos.dto.ActionMarketingDTO;
 import com.bprice.bpapipos.service.IContratActionService;
 import com.bprice.persistance.model.ActionMarketing;
+import com.bprice.persistance.model.Contrat;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -41,4 +42,29 @@ IContratActionService contratActionService;
     public Object findAllActionMarketing(HttpServletRequest request){
         return  contratActionService.findAllContract();
     }
+
+
+    @GetMapping("/findAllContratActionMarketingByPartenaireId/{idPartenaire}")
+    @ApiOperation(value = "Afficher la list des Contrat Actions Marketing ", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllContratActionMarketingByPartenaireId(HttpServletRequest request, @PathVariable("idPartenaire") String idPartenaire){
+        return  contratActionService.findAllContratByIdPartenaire(idPartenaire);
+    }
+
+    @PostMapping("/UpdateContratActionMarketing")
+    @ApiOperation(value = "modifier un Contrat d'Action Marketing", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object UpdateContratActionMarketing(HttpServletRequest request, @RequestBody @Valid Contrat contrat){
+
+        return contratActionService.UpdateActionContract(contrat);
+    }
 }
+
+
+

@@ -18,6 +18,8 @@ public interface IPartenaireBpriceRepository extends MongoRepository<PartenaireB
    // public List<PartenaireBprice> findAllByIdSectorAndFActif(String idSector,short factif);
     public List<PartenaireBprice> findAllByIdVilleAndFActif(String idVille, short factif);
     public PartenaireBprice findByMatriculeFiscale(String matricule);
+    public PartenaireBprice findPartenaireBpriceByIdPartenaire(String idPartenaire);
+
 
 
 

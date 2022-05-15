@@ -10,5 +10,6 @@ import java.util.List;
 public interface IContractActionRepository extends MongoRepository<Contrat,String> {
     public Integer countAllByDateCreation(Date date);
     public List<Contrat> findAll();
+    public  List<Contrat> findAllByIdPartenaire(String idPartenaire);
 
 }

@@ -150,7 +150,9 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingDTOWithStatutBiggerThan(HttpServletRequest request,@PathVariable("statut") int statut){
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutGreaterThan(statut));
+       // return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutGreaterThan(statut));
+        return  actionMarketingService.findAllActionMarketingDTOWithStatutBiggerThan(statut);
+
     }
 
     @GetMapping("/findAllActionMarketingByIdCanalDiffusionDTO/{idCanal}")
@@ -160,7 +162,7 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingByIdCanalDiffusionDTO(HttpServletRequest request,@PathVariable("idCanal") String idCanal){
-
+        System.out.println(idCanal);
         return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThan(idCanal,0));
     }
 

@@ -16,6 +16,7 @@ public interface IActionMarketingService {
     public ResponseObject findAllByIdPartenaire(String IdPartenaire);
     public ResponseObject findAllByIdCanalDiffusion(String idCanal);
     public ResponseObject findAll();
+    public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut);
 
 
     public ResponseObject entityToDto(List<ActionMarketing> actionMarketings);

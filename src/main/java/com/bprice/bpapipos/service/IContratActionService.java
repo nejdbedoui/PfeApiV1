@@ -11,6 +11,7 @@ public interface IContratActionService {
     public ResponseObject UpdateActionContract(Contrat contrat);
     public ResponseObject findByIdActionContract(String IdContract);
     public ResponseObject findAllContract();
+    public ResponseObject findAllContratByIdPartenaire(String idPartenaire);
 
 
 }
