@@ -8,13 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 public interface IActionMarketingRepository extends MongoRepository<ActionMarketing,String> {
-    public List<ActionMarketing> findAllByIdPartenaire(String IdPartenaire);
+    public List<ActionMarketing> findAllByIdPartenaireOrderByDateCreationDesc(String IdPartenaire);
     public List<ActionMarketing> findAll();
-    public List<ActionMarketing> findAllByStatut(int statut);
-    public List<ActionMarketing> findAllByStatutGreaterThan(int statut);
+    public List<ActionMarketing> findAllByStatutOrderByDateCreationDesc(int statut);
+    public List<ActionMarketing> findAllByStatutGreaterThanOrderByDateCreationDesc(int statut);
     public ActionMarketing findActionMarketingByIdActionMarketing(String IdAction);
-    public List<ActionMarketing> findAllActionMarketingByIdPartenaireAndDateCreationBetween(String IdPartenaire,Date DateDebut,Date DateFin);
-    public List<ActionMarketing> findActionMarketingByDateCreationBetween(Date DateDebut,Date DateFin);
-    public List<ActionMarketing> findAllByIdCanaldiffusionAndStatutGreaterThan(String idCanal,int statut);
+    public List<ActionMarketing> findAllActionMarketingByIdPartenaireAndDateCreationBetweenOrderByDateCreationDesc(String IdPartenaire,Date DateDebut,Date DateFin);
+    public List<ActionMarketing> findActionMarketingByDateCreationBetweenOrderByDateCreationDesc(Date DateDebut,Date DateFin);
+    public List<ActionMarketing> findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(String idCanal,int statut);
+
 
 }

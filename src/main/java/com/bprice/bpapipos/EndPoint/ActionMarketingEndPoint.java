@@ -128,7 +128,7 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingDTOByIdPartenaire(HttpServletRequest request,@PathVariable("idPartenaire") String idPartenaire){
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdPartenaire(idPartenaire));
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdPartenaireOrderByDateCreationDesc(idPartenaire));
     }
 
     @GetMapping("/findAllActionMarketingDTOByStatut/{statut}")
@@ -139,7 +139,7 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingDTOByStatut(HttpServletRequest request,@PathVariable("statut") int statut){
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatut(statut));
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutOrderByDateCreationDesc(statut));
     }
 
     @GetMapping("/findAllActionMarketingDTOWithStatutBiggerThan/{statut}")
@@ -150,7 +150,7 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingDTOWithStatutBiggerThan(HttpServletRequest request,@PathVariable("statut") int statut){
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutGreaterThan(statut));
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByStatutGreaterThanOrderByDateCreationDesc(statut));
     }
 
     @GetMapping("/findAllActionMarketingByIdCanalDiffusionDTO/{idCanal}")
@@ -161,7 +161,7 @@ IActionMarketingRepository actionMarketingRepository;
             @ApiResponse(code = 404, message = "not found") })
     public Object findAllActionMarketingByIdCanalDiffusionDTO(HttpServletRequest request,@PathVariable("idCanal") String idCanal){
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThan(idCanal,0));
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(idCanal,0));
     }
 
 
