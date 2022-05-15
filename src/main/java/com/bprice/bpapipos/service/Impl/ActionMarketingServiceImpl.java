@@ -148,7 +148,7 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
     @Override
     public ResponseObject findAllByIdPartenaireAndDateCreation(String IdPartenaire, Date DateDebut, Date DateFin) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findAllActionMarketingByIdPartenaireAndDateCreationBetween(IdPartenaire,DateDebut,DateFin);
+            List<ActionMarketing> result = actionMarketingRepository.findAllActionMarketingByIdPartenaireAndDateCreationBetweenOrderByDateCreationDesc(IdPartenaire,DateDebut,DateFin);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -164,7 +164,7 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
     @Override
     public ResponseObject findAllByDateCreation(Date DateDebut, Date DateFin) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findActionMarketingByDateCreationBetween(DateDebut,DateFin);
+            List<ActionMarketing> result = actionMarketingRepository.findActionMarketingByDateCreationBetweenOrderByDateCreationDesc(DateDebut,DateFin);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -180,7 +180,7 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
     @Override
     public ResponseObject findAllByIdPartenaire(String IdPartenaire) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findAllByIdPartenaire(IdPartenaire);
+            List<ActionMarketing> result = actionMarketingRepository.findAllByIdPartenaireOrderByDateCreationDesc(IdPartenaire);
             if (result != null) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
@@ -196,7 +196,7 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
     @Override
     public ResponseObject findAllByIdCanalDiffusion(String idCanal) {
         try {
-            List<ActionMarketing> result = actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThan(idCanal,0);
+            List<ActionMarketing> result = actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(idCanal,0);
             if (result.size() >0) {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                         result);
