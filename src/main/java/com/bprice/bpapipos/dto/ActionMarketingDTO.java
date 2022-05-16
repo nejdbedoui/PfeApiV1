@@ -23,6 +23,15 @@ public class ActionMarketingDTO {
     private int typeitem;
     private String smsBody;
     private String titre;
+    private String nomsecteur;
+
+    public String getNomsecteur() {
+        return nomsecteur;
+    }
+
+    public void setNomsecteur(String nomsecteur) {
+        this.nomsecteur = nomsecteur;
+    }
 
     private String nomPartenaire;
 

@@ -8,11 +8,9 @@ import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
 import com.bprice.bpapipos.repository.IStorageRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
+import com.bprice.bpapipos.service.ICategorieService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
-import com.bprice.persistance.model.ActionMarketing;
-import com.bprice.persistance.model.CanalDiffusion;
-import com.bprice.persistance.model.PartenaireBprice;
-import com.bprice.persistance.model.Storage;
+import com.bprice.persistance.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +29,11 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
+    @Autowired
+    ICategorieService categorieService;
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
-IPartenaireBpriceRepository partenaireBpriceRepository;
+
     @Override
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing) {
         try {
@@ -235,10 +235,18 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
 
+
+
         PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(actionMarketing.getIdPartenaire())
                 .getObjectResponse();
             if(partenaireBprice!=null) {
                 action.setNomPartenaire(partenaireBprice.getAbbreviation());
+            }
+
+        Categorie categorie = (Categorie)  categorieService.findByIdCategorie(actionMarketing.getIdCategorie()).getObjectResponse();
+
+            if(categorie!=null){
+                action.setNomsecteur(categorie.getDesignation());
             }
 
         action.setDescription(actionMarketing.getDescription());
@@ -268,7 +276,7 @@ IPartenaireBpriceRepository partenaireBpriceRepository;
     public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut){
         try {
             if(statut!=null){
-                List<ActionMarketing> actionMarketings=actionMarketingRepository.findAllByStatut(statut);
+                List<ActionMarketing> actionMarketings=actionMarketingRepository.findAllByStatutGreaterThanOrderByDateCreationDesc(statut);
                 if(actionMarketings.size()>0){
                     return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, actionMarketings.stream().map(x -> entityToOneDto(x)).collect(Collectors.toList()));
                 }else{

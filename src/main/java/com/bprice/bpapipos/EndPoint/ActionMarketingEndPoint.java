@@ -168,7 +168,7 @@ IActionMarketingRepository actionMarketingRepository;
     public Object findAllActionMarketingByIdCanalDiffusionDTO(HttpServletRequest request,@PathVariable("idCanal") String idCanal){
 
 
-        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(idCanal,0));
+        return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(idCanal,1));
 
     }
 

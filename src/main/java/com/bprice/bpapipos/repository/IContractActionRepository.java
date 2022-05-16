@@ -11,5 +11,6 @@ public interface IContractActionRepository extends MongoRepository<Contrat,Strin
     public Integer countAllByDateCreation(Date date);
     public List<Contrat> findAll();
     public  List<Contrat> findAllByIdPartenaire(String idPartenaire);
+    public List<Contrat> findAllByIdActionMarketing(String IdAction);
 
 }
