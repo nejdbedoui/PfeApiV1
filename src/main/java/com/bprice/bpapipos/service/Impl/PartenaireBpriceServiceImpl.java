@@ -226,6 +226,7 @@ PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO
      if(listePointVente.size()>0){
          pointeVentePartenaireDTO.setListePointVente(listePointVente);
      }
+     pointeVentePartenaireDTO.setIdSecteur(partenaireBprice.getIdPartenaire());
 
 
 
@@ -236,12 +237,17 @@ PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO
 
 
     @Override
-    public ResponseObject entityToDto(Short factif) {
+    public ResponseObject entityToDto(String idPartenaire,short fActif) {
         try {
-            if(factif!=null){
-                List<PartenaireBprice> partenaireBprices=partenaireBpriceRepository.findAllByFActif(factif);
-                if(partenaireBprices.size()>0){
+            if(idPartenaire!=null){
+                PartenaireBprice partenaireBprice = (PartenaireBprice) this.findByIdPartenaire(idPartenaire).getObjectResponse();
+                if(partenaireBprice!=null){
+                List<PartenaireBprice> partenaireBprices=partenaireBpriceRepository.findAllByFActifAndIdSectorIsNotAndIdPartenaireIsNot(fActif,partenaireBprice.getIdSector(),partenaireBprice.getIdPartenaire());
+                if(partenaireBprices.size()>0) {
                     return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, partenaireBprices.stream().map(x -> entityToDto(x)).collect(Collectors.toList()));
+                }else{
+                    return new ResponseObject(EnumMessage.PARTENAIREBPRICE_NOT_EXIST.code, EnumMessage.PARTENAIREBPRICE_NOT_EXIST.label, null);
+                }
                 }else{
                     return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.label, null);
                 }            }else{

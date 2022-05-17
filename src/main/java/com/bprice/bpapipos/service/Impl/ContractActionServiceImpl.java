@@ -29,41 +29,46 @@ public class ContractActionServiceImpl implements IContratActionService {
     IContractActionRepository contractActionRepository;
     @Autowired
     IActionMarketingRepository actionMarketingRepository;
+
     @Override
     public ResponseObject CreateActionContract(ActionMarketingDTO actionMarketingDTO) {
-        System.out.println(actionMarketingDTO.getIdActionMarketing());
 
-        if (actionMarketingDTO.getIdActionMarketing()!=null){
-            ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(actionMarketingDTO.getIdActionMarketing())
-                    .getObjectResponse();
-        if(actionMarketing!=null){
-            Contrat contrat = new Contrat();
-            contrat.setDateCreation(new Date());
-            contrat.setStatutContrat(0);
-            contrat.setDescriptionAction(actionMarketing.getDescription());
-            contrat.setDateDebut(actionMarketing.getDateDebut());
-            contrat.setDateFin(actionMarketing.getDateFin());
-            contrat.setIdPartenaire(actionMarketing.getIdPartenaire());
-            contrat.setIdActionMarketing(actionMarketing.getIdActionMarketing());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(contrat.getDateCreation());
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-            int x = contractActionRepository.countAllByDateCreation(calendar.getTime())+1;
-            contrat.setNumeroContrat(Integer.toString(calendar.get(Calendar.YEAR))+'-'+calendar.get(Calendar.MONTH)+'-'+calendar.get(Calendar.DAY_OF_MONTH)+ "-c"+x);
+        if(contractActionRepository.findAllByIdActionMarketing(actionMarketingDTO.getIdActionMarketing()).size()==0) {
 
-            Contrat result = contractActionRepository.save(contrat);
-            return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
-                    EnumMessage.SUCCESS_CREATION.label, result);
-        }
-            return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code,
-                    EnumMessage.ACTIONMARKETING_NOT_EXIST.label, null);
+            if (actionMarketingDTO.getIdActionMarketing() != null) {
+                ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(actionMarketingDTO.getIdActionMarketing())
+                        .getObjectResponse();
+                if (actionMarketing != null) {
+                    Contrat contrat = new Contrat();
+                    contrat.setDateCreation(new Date());
+                    contrat.setStatutContrat(0);
+                    contrat.setDescriptionAction(actionMarketing.getDescription());
+                    contrat.setDateDebut(actionMarketing.getDateDebut());
+                    contrat.setDateFin(actionMarketing.getDateFin());
+                    contrat.setIdPartenaire(actionMarketing.getIdPartenaire());
+                    contrat.setIdActionMarketing(actionMarketing.getIdActionMarketing());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(contrat.getDateCreation());
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    int x = contractActionRepository.countAllByDateCreation(calendar.getTime()) + 1;
+                    contrat.setNumeroContrat(Integer.toString(calendar.get(Calendar.YEAR)) + '-' + calendar.get(Calendar.MONTH) + '-' + calendar.get(Calendar.DAY_OF_MONTH) + "-c" + x);
+
+                    Contrat result = contractActionRepository.save(contrat);
+                    return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
+                            EnumMessage.SUCCESS_CREATION.label, result);
+                }
+                return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code,
+                        EnumMessage.ACTIONMARKETING_NOT_EXIST.label, null);
+            } else {
+                return new ResponseObject(EnumMessage.CONTRACT_EMPTY.code, EnumMessage.CONTRACT_EMPTY.label, null);
+
+            }
         }
         else{
-            return new ResponseObject(EnumMessage.CONTRACT_EMPTY.code, EnumMessage.CONTRACT_EMPTY.label, null);
-
+            return new ResponseObject(EnumMessage.CONTRACT_ALREADY_EXISTS.code, EnumMessage.CONTRACT_ALREADY_EXISTS.label, null);
         }
     }
 

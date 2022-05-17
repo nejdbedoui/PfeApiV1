@@ -21,6 +21,7 @@ public interface IPartenaireBpriceRepository extends MongoRepository<PartenaireB
     public PartenaireBprice findPartenaireBpriceByIdPartenaire(String idPartenaire);
 
 
+    public List<PartenaireBprice> findAllByFActifAndIdSectorIsNotAndIdPartenaireIsNot(short factif,String idSector,String idPartenaire);
 
 
 }

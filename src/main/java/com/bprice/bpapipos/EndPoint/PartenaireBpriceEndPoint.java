@@ -168,14 +168,14 @@ public class PartenaireBpriceEndPoint {
         return partenaireBpriceService.findAllByIdVilleAndFActif(idVille, factif);
     }
 
-    @GetMapping("/findAllWithPointVentesByFActifDTO/{factif}")
+    @GetMapping("/findAllWithPointVentesByFActifDTO/{idPartenaire}")
     @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllWithPointVentesByFActifDTO(HttpServletRequest request,@PathVariable("factif") Short factif){
+    public Object findAllWithPointVentesByFActifDTO(HttpServletRequest request,@PathVariable("idPartenaire") String idPartenaire){
 
-        return  partenaireBpriceService.entityToDto(factif);
+        return  partenaireBpriceService.entityToDto(idPartenaire,(short)1);
     }
 }

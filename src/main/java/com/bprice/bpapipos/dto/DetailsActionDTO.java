@@ -4,8 +4,26 @@ import java.util.List;
 
 public class DetailsActionDTO {
     private String sector;
-    private String age;//30-40
+    private List<String> secteurCible;
+    private List<Integer> age;//30-40
     private int sexe;//h,f,h-f
+
+    public List<String> getSecteurCible() {
+        return secteurCible;
+    }
+
+    public void setSecteurCible(List<String> secteurCible) {
+        this.secteurCible = secteurCible;
+    }
+
+    public List<Integer> getAge() {
+        return age;
+    }
+
+    public void setAge(List<Integer> age) {
+        this.age = age;
+    }
+
     private List<String> ville;
     private String namefile;
     private int typefile;
@@ -21,13 +39,6 @@ public class DetailsActionDTO {
         this.sector = sector;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 
     public int getSexe() {
         return sexe;

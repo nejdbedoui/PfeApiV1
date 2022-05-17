@@ -220,6 +220,7 @@ public enum EnumMessage {
 
 
 	CONTRACT_EMPTY("id Action Vide",0),
+	CONTRACT_ALREADY_EXISTS("Contact existe déja",5),
 	LIST_CONTRACT_NOT_EMPTY("la list des CONTRACT est non vide",1),
 	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
 

@@ -30,6 +30,7 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
     ICanalDiffusionRepository canalDiffusionRepository;
 
 
+
     @Override
     public ResponseObject findDetailsByAction(ActionMarketing actionMarketing) {
         try {
@@ -39,8 +40,19 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
             PopulationCible populationCible=populationCibleRepository.findById(actionMarketing.getIdPopulationCible()).orElse(null);
             details.setSector(categorie.getDesignation());
             details.setCanaldifusion(canalDiffusion.getLibelle());
+            if(populationCible.getAge()!=null)
             details.setAge(populationCible.getAge());
             details.setSexe(populationCible.getSexe());
+            if(actionMarketing.getSecteurcible().size()>0){
+                List<String> listesecteur = new ArrayList<>();
+                for (int i = 0; i < actionMarketing.getSecteurcible().size(); i++) {
+                    listesecteur.add(categorieRepository.findById(actionMarketing.getSecteurcible().get(i)).orElse(null).getDesignation());
+                }
+                if(listesecteur.size()>0){
+                    details.setSecteurCible(listesecteur);
+                }
+            }
+
             List<String> ville = new ArrayList<>();
             for (int i = 0; i < populationCible.getVille().size(); i++) {
                 ville.add(iVillepRepository.findById(populationCible.getVille().get(i)).orElse(null).getLibelle());

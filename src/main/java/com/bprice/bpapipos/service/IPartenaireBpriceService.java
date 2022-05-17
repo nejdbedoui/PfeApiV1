@@ -25,6 +25,7 @@ public interface IPartenaireBpriceService {
 
 
 
-    public ResponseObject entityToDto(Short factif);
+
+    public ResponseObject entityToDto(String idPartenaire,short fActif);
 
 }
