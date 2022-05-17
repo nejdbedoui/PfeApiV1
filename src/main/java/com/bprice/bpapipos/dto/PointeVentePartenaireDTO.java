@@ -10,7 +10,15 @@ public class PointeVentePartenaireDTO {
     private String idPartenaire;
     private String abbreviation;
     private String adresse;
+    private String idSecteur;
 
+    public String getIdSecteur() {
+        return idSecteur;
+    }
+
+    public void setIdSecteur(String idSecteur) {
+        this.idSecteur = idSecteur;
+    }
 
     public List<PointVente> getListePointVente() {
         return listePointVente;
