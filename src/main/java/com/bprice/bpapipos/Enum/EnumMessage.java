@@ -225,6 +225,13 @@ public enum EnumMessage {
 	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
 
 	DETAILS_NOT_EMPTY("detail de l'action exist",1),
+
+	OK( "OK",0),
+	EXPIRED( "Expired",1),
+	ERROR( "Erreur",2),
+	USED( "Erreur",3),
+	;
+
 	;
 
 	private static final Map<Integer, EnumMessage> BY_CODE = new HashMap<>();
