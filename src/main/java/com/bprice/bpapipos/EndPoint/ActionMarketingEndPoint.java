@@ -4,13 +4,11 @@ import com.bprice.bpapipos.repository.IActionMarketingRepository;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.persistance.model.ActionMarketing;
 import com.bprice.persistance.model.DateRange;
-import com.bprice.persistance.model.ModeReglement;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
