@@ -11,6 +11,34 @@ public class PointeVentePartenaireDTO {
     private String abbreviation;
     private String adresse;
     private String idSecteur;
+    private String nTel;
+    private int statut;
+
+    private int prix;
+
+    public int getPrix() {
+        return prix;
+    }
+
+    public void setPrix(int prix) {
+        this.prix = prix;
+    }
+
+    public int getStatut() {
+        return statut;
+    }
+
+    public void setStatut(int statut) {
+        this.statut = statut;
+    }
+
+    public String getnTel() {
+        return nTel;
+    }
+
+    public void setnTel(String nTel) {
+        this.nTel = nTel;
+    }
 
     public String getIdSecteur() {
         return idSecteur;

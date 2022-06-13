@@ -7,6 +7,8 @@ import com.bprice.bpapipos.dto.PointeVentePartenaireDTO;
 import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
 import com.bprice.bpapipos.repository.IPointVenteRepository;
 import com.bprice.bpapipos.response.ResponseObject;
+import com.bprice.bpapipos.service.IActionMarketingService;
+import com.bprice.bpapipos.service.IParametreActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
 import com.bprice.persistance.model.*;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +28,11 @@ public class PartenaireBpriceServiceImpl implements IPartenaireBpriceService {
     private IPartenaireBpriceRepository partenaireBpriceRepository;
     @Autowired
     IPointVenteRepository pointVenteRepository;
+
+    @Autowired
+    IParametreActionMarketingService parametreActionMarketingService;
+
+
     @Override
     public ResponseObject CreatePartenaireBprice(PartenaireBprice partenaireBprice) {
         try {
@@ -215,11 +222,16 @@ public class PartenaireBpriceServiceImpl implements IPartenaireBpriceService {
 
 
 
-    public PointeVentePartenaireDTO entityToDto( PartenaireBprice partenaireBprice){
+    public PointeVentePartenaireDTO entityToDto( PartenaireBprice partenaireBprice,String idActionMarketing){
+
 PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO();
         pointeVentePartenaireDTO.setIdPartenaire(partenaireBprice.getIdPartenaire());
         pointeVentePartenaireDTO.setAbbreviation(partenaireBprice.getAbbreviation());
         pointeVentePartenaireDTO.setAdresse(partenaireBprice.getAdresse());
+        if(partenaireBprice.getnTel()!=null){
+            pointeVentePartenaireDTO.setnTel(partenaireBprice.getnTel());
+        }
+
 
      List<PointVente> listePointVente = pointVenteRepository.findAllByIdPartenaireAndFActifAndTypePv(partenaireBprice.getIdPartenaire(),(short) 1,"pointVente");
 
@@ -228,6 +240,18 @@ PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO
      }
      pointeVentePartenaireDTO.setIdSecteur(partenaireBprice.getIdPartenaire());
 
+     ParametreActionMarketing parametreActionMarketing = (ParametreActionMarketing) parametreActionMarketingService.findByIdActionMarketingAndIdPartenaireCible(idActionMarketing,partenaireBprice.getIdPartenaire())
+             .getObjectResponse();
+
+
+     if(parametreActionMarketing!=null){
+         pointeVentePartenaireDTO.setStatut(parametreActionMarketing.getStatut());
+         pointeVentePartenaireDTO.setPrix(parametreActionMarketing.getPrix());
+     }else {
+         pointeVentePartenaireDTO.setStatut(0);
+     }
+
+
 
 
 
@@ -235,23 +259,33 @@ PointeVentePartenaireDTO pointeVentePartenaireDTO = new PointeVentePartenaireDTO
 
     }
 
+    @Autowired
+    IActionMarketingService actionMarketingService;
 
     @Override
-    public ResponseObject entityToDto(String idPartenaire,short fActif) {
+    public ResponseObject entityToDto(String idActionMarketing,short fActif) {
         try {
-            if(idPartenaire!=null){
-                PartenaireBprice partenaireBprice = (PartenaireBprice) this.findByIdPartenaire(idPartenaire).getObjectResponse();
-                if(partenaireBprice!=null){
-                List<PartenaireBprice> partenaireBprices=partenaireBpriceRepository.findAllByFActifAndIdSectorIsNotAndIdPartenaireIsNot(fActif,partenaireBprice.getIdSector(),partenaireBprice.getIdPartenaire());
-                if(partenaireBprices.size()>0) {
-                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, partenaireBprices.stream().map(x -> entityToDto(x)).collect(Collectors.toList()));
-                }else{
-                    return new ResponseObject(EnumMessage.PARTENAIREBPRICE_NOT_EXIST.code, EnumMessage.PARTENAIREBPRICE_NOT_EXIST.label, null);
+            if(idActionMarketing!=null){
+                ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(idActionMarketing)
+                        .getObjectResponse();
+                if(actionMarketing!=null) {
+                    PartenaireBprice partenaireBprice = (PartenaireBprice) this.findByIdPartenaire(actionMarketing.getIdPartenaire()).getObjectResponse();
+                    if (partenaireBprice != null) {
+                        List<PartenaireBprice> partenaireBprices = partenaireBpriceRepository.findAllByFActifAndIdSectorIsNotAndIdPartenaireIsNot(fActif, partenaireBprice.getIdSector(), actionMarketing.getIdPartenaire());
+                        if (partenaireBprices.size() > 0) {
+                            return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, partenaireBprices.stream().map(x -> entityToDto(x,idActionMarketing)).collect(Collectors.toList()));
+                        } else {
+                            return new ResponseObject(EnumMessage.PARTENAIREBPRICE_NOT_EXIST.code, EnumMessage.PARTENAIREBPRICE_NOT_EXIST.label, null);
+                        }
+                    } else {
+                        return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.label, null);
+                    }
                 }
-                }else{
-                    return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICES_EMPTY.label, null);
-                }            }else{
-                return new ResponseObject(EnumMessage.PARAMETRE_EMPTY.code, EnumMessage.PARAMETRE_EMPTY.label, null);
+                else{
+                    return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code, EnumMessage.ACTIONMARKETING_NOT_EXIST.label, null);
+                }
+            }else{
+                return new ResponseObject(EnumMessage.ID_EMPTY.code, EnumMessage.ID_EMPTY.label, null);
 
             }
         }catch (Exception e){

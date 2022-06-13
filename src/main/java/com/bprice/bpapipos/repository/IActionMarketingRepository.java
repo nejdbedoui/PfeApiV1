@@ -20,4 +20,5 @@ public interface IActionMarketingRepository extends MongoRepository<ActionMarket
     public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num,String idpartenaire);
 
 
+
 }

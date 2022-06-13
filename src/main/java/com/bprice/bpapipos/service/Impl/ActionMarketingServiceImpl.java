@@ -2,10 +2,7 @@ package com.bprice.bpapipos.service.Impl;
 
 import com.bprice.bpapipos.Enum.EnumMessage;
 import com.bprice.bpapipos.dto.ActionMarketingDTO;
-import com.bprice.bpapipos.repository.IActionMarketingRepository;
-import com.bprice.bpapipos.repository.ICanalDiffusionRepository;
-import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
-import com.bprice.bpapipos.repository.IStorageRepository;
+import com.bprice.bpapipos.repository.*;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
@@ -31,6 +28,10 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
+
+    @Autowired
+    IDemandeActionMarketingRepository demandeActionMarketingRepository;
+
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
   @Override
@@ -43,9 +44,14 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
                     if (partenaireBprice != null) {
                         actionMarketing.setStatut(0);
                         ActionMarketing result = actionMarketingRepository.save(actionMarketing);
+                        DemandeActionMarketing demandeActionMarketing = new DemandeActionMarketing();
+                        demandeActionMarketing.setStatut(0);
+                        demandeActionMarketing.setDateCreation(actionMarketing.getDateCreation());
+                        demandeActionMarketing.setNotification(0);
+                        demandeActionMarketing.setIdPartenaire(actionMarketing.getIdPartenaire());
+                        demandeActionMarketing.setIdActionMarketing(result.getIdActionMarketing());
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
-
 
 
                     } else {
@@ -254,6 +260,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
             action.setSmsBody(actionMarketing.getSmsBody());
         }
         action.setTypeitem(actionMarketing.getTypeContenue());
+        action.setTypeitemsec(actionMarketing.getIdTypeAffichage());
 
         return action;
     }
