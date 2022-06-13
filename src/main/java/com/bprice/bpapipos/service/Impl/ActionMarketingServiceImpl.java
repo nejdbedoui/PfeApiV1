@@ -2,13 +2,9 @@ package com.bprice.bpapipos.service.Impl;
 
 import com.bprice.bpapipos.Enum.EnumMessage;
 import com.bprice.bpapipos.dto.ActionMarketingDTO;
-import com.bprice.bpapipos.repository.IActionMarketingRepository;
-import com.bprice.bpapipos.repository.ICanalDiffusionRepository;
-import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
-import com.bprice.bpapipos.repository.IStorageRepository;
+import com.bprice.bpapipos.repository.*;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
-import com.bprice.bpapipos.service.ICategorieService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
 import com.bprice.persistance.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +26,10 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     @Autowired
     IStorageRepository storageRepository;
     @Autowired
-    ICategorieService categorieService;
+    IDemandeActionMarketingRepository demandeActionMarketingRepository;
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
-
-    @Override
+  @Override
     public ResponseObject CreateActionMarketing(ActionMarketing actionMarketing) {
         try {
             if (actionMarketing != null) {
@@ -44,9 +39,14 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
                     if (partenaireBprice != null) {
                         actionMarketing.setStatut(0);
                         ActionMarketing result = actionMarketingRepository.save(actionMarketing);
+                        DemandeActionMarketing demandeActionMarketing = new DemandeActionMarketing();
+                        demandeActionMarketing.setStatut(0);
+                        demandeActionMarketing.setDateCreation(actionMarketing.getDateCreation());
+                        demandeActionMarketing.setNotification(0);
+                        demandeActionMarketing.setIdPartenaire(actionMarketing.getIdPartenaire());
+                        demandeActionMarketing.setIdActionMarketing(result.getIdActionMarketing());
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
-
 
 
                     } else {
@@ -235,18 +235,10 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         action.setDateCreation(actionMarketing.getDateCreation());
         action.setStatut(actionMarketing.getStatut());
 
-
-
         PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(actionMarketing.getIdPartenaire())
                 .getObjectResponse();
             if(partenaireBprice!=null) {
                 action.setNomPartenaire(partenaireBprice.getAbbreviation());
-            }
-
-        Categorie categorie = (Categorie)  categorieService.findByIdCategorie(actionMarketing.getIdCategorie()).getObjectResponse();
-
-            if(categorie!=null){
-                action.setNomsecteur(categorie.getDesignation());
             }
 
         action.setDescription(actionMarketing.getDescription());
@@ -263,6 +255,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
             action.setSmsBody(actionMarketing.getSmsBody());
         }
         action.setTypeitem(actionMarketing.getTypeContenue());
+        action.setTypeitemsec(actionMarketing.getIdTypeAffichage());
 
         return action;
     }
@@ -276,7 +269,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
     public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut){
         try {
             if(statut!=null){
-                List<ActionMarketing> actionMarketings=actionMarketingRepository.findAllByStatutGreaterThanOrderByDateCreationDesc(statut);
+                List<ActionMarketing> actionMarketings=actionMarketingRepository.findAllByStatutOrderByDateCreationDesc(statut);
                 if(actionMarketings.size()>0){
                     return new ResponseObject(EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.code, EnumMessage.LIST_PARTENAIREBPRICE_NOT_EMPTY.label, actionMarketings.stream().map(x -> entityToOneDto(x)).collect(Collectors.toList()));
                 }else{

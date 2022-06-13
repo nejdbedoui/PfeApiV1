@@ -200,8 +200,8 @@ public enum EnumMessage {
 	CANALEDIFFUSION_ID_EMPTY("id Canal de diffusion est null",-2),
 	CANALEDIFFUSION_NOT_EXIST("Canal de diffusion n'exist pas",-5),
 	CANALEDIFFUSION_EXIST("le Canal de diffusion exist",1),
-	LIST_CANALEDIFFUSION_NOT_EMPTY("la list des Canals de diffusions est non vide",1),
-	LIST_CANALEDIFFUSION_EMPTY("la list des Canals de diffusions est vide",0),
+	LIST_CANALEDIFFUSION_NOT_EMPTY("la list des Canaux de diffusions est non vide",1),
+	LIST_CANALEDIFFUSION_EMPTY("la list des Canaux de diffusions est vide",0),
 
 
 
@@ -211,6 +211,19 @@ public enum EnumMessage {
 	FORMATAFFICHAGE_EXIST("le Format d'affiche exist",1),
 	LIST_FORMATAFFICHAGE_NOT_EMPTY("la list des Formats d'affiches est non vide",1),
 	LIST_FORMATAFFICHAGE_EMPTY("la list des Formats d'affiches est vide",0),
+
+	TYPEAFFICHAGE_EMPTY("type d'affiche vide",0),
+	TYPEAFFICHAGE_ID_EMPTY("id type d'affiche est null",-2),
+	TYPEAFFICHAGE_NOT_EXIST("type d'affiche n'exist pas",-5),
+	TYPEAFFICHAGE_EXIST("le type d'affiche exist",1),
+	LIST_TYPEAFFICHAGE_NOT_EMPTY("la list des types d'affiches est non vide",1),
+	LIST_TYPEAFFICHAGE_EMPTY("la list des publicités mobiles est vide",0),
+	PUBLICITEMOBILE_EMPTY("publicité mobile vide",0),
+	PUBLICITEMOBILE_ID_EMPTY("id publicité mobileest null",-2),
+	PUBLICITEMOBILE_NOT_EXIST("publicité mobile n'exist pas",-5),
+	PUBLICITEMOBILE_EXIST("le publicité mobile exist",1),
+	LIST_PUBLICITEMOBILE_NOT_EMPTY("la list des types d'affiches est non vide",1),
+	LIST_PUBLICITEMOBILE_EMPTY("la list des types d'affiches est vide",0),
 
 	VILLE_EMPTY("ville vide",0),
 	VILLE_ID_EMPTY("id ville est null",-2),
@@ -225,6 +238,13 @@ public enum EnumMessage {
 	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
 
 	DETAILS_NOT_EMPTY("detail de l'action exist",1),
+
+	OK( "OK",0),
+	EXPIRED( "Expired",1),
+	ERROR( "Erreur",2),
+	USED( "Erreur",3),
+	;
+
 	;
 
 	private static final Map<Integer, EnumMessage> BY_CODE = new HashMap<>();

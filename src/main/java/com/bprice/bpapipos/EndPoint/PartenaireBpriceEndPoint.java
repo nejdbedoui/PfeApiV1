@@ -104,6 +104,25 @@ public class PartenaireBpriceEndPoint {
     public Object findAllByFActif(HttpServletRequest request,@PathVariable("factif") Short factif){
         return partenaireBpriceService.findAllByFActif(factif);
     }
+
+
+
+    @GetMapping("/findAllPartenaireBpriceByFActif")
+    @ApiOperation(value = "Afficher la liste de tous les PartenaireBprices par FActif", notes = "Retourner la liste de tous les PartenaireBprices par FActif.\n"
+            + "\n<b>result = 1 :</b> List PartenaireBprice n'est pas vide</b> \n"
+            + "\n<b>result = 0 :</b>List PartenaireBprice est vide\n"
+            + "\n<b>result = -2 :</b>le parametre envoyer est null\n"
+            + "\n<b>result = -3 :</b> Query failed\n"
+            + "\n<b>result = 401 :</b> TOKEN NOT AUTHORIZED\n"
+            + "\n<b>result = 402 :</b> TOKEN MISSING.", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllByFActif2(HttpServletRequest request){
+        return partenaireBpriceService.findAllByFActif((short) 1);
+    }
+
 //    @GetMapping("/findAllByIdSector/{idSector}")
 //    @ApiOperation(value = "Afficher la liste de tous les PartenaireBprices par IdSector", notes = "Retourner la liste de tous les PartenaireBprices par IdSector.\n"
 //            + "\n<b>result = 1 :</b> List PartenaireBprice n'est pas vide</b> \n"
@@ -168,14 +187,13 @@ public class PartenaireBpriceEndPoint {
         return partenaireBpriceService.findAllByIdVilleAndFActif(idVille, factif);
     }
 
-    @GetMapping("/findAllWithPointVentesByFActifDTO/{idPartenaire}")
+    @GetMapping("/findAllWithPointVentesByFActifDTO/{idActionMarketing}")
     @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
             @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
             @ApiResponse(code = 404, message = "not found") })
-    public Object findAllWithPointVentesByFActifDTO(HttpServletRequest request,@PathVariable("idPartenaire") String idPartenaire){
-
-        return  partenaireBpriceService.entityToDto(idPartenaire,(short)1);
+    public Object findAllWithPointVentesByFActifDTO(HttpServletRequest request,@PathVariable("idActionMarketing") String idActionMarketing){
+        return  partenaireBpriceService.entityToDto(idActionMarketing,(short)1);
     }
 }

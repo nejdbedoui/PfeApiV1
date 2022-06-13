@@ -1,16 +1,16 @@
 package com.bprice.bpapipos.EndPoint;
 
 import com.bprice.bpapipos.repository.IActionMarketingRepository;
+import com.bprice.bpapipos.repository.IDemandeActionMarketingRepository;
 import com.bprice.bpapipos.service.IActionMarketingService;
+import com.bprice.bpapipos.service.IDemandeActionMarketingService;
 import com.bprice.persistance.model.ActionMarketing;
 import com.bprice.persistance.model.DateRange;
-import com.bprice.persistance.model.ModeReglement;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +25,11 @@ public class ActionMarketingEndPoint {
 IActionMarketingService actionMarketingService;
 @Autowired
 IActionMarketingRepository actionMarketingRepository;
+
+@Autowired
+IDemandeActionMarketingRepository demandeActionMarketingRepository;
+@Autowired
+IDemandeActionMarketingService demandeActionMarketingService;
 
     @PostMapping("/CreateActionMarketing")
     @ApiOperation(value = "créer une Action Marketing", authorizations = {
@@ -171,6 +176,20 @@ IActionMarketingRepository actionMarketingRepository;
         return  actionMarketingService.entityToDto(actionMarketingRepository.findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(idCanal,1));
 
     }
+
+    @GetMapping("/findAllDemandeActionMarketing")
+    @ApiOperation(value = "Afficher l' Action Marketing DTO selon l'idPartenaire et le date range envoyer", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllActionMarketingByIdCanalDiffusionDTO(HttpServletRequest request){
+
+
+        return  demandeActionMarketingService.entityToDto(demandeActionMarketingRepository.findAll());
+
+    }
+
 
 
 
