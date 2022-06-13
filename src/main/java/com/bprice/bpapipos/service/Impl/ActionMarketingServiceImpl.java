@@ -6,7 +6,10 @@ import com.bprice.bpapipos.repository.*;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
-import com.bprice.persistance.model.*;
+import com.bprice.persistance.model.ActionMarketing;
+import com.bprice.persistance.model.CanalDiffusion;
+import com.bprice.persistance.model.PartenaireBprice;
+import com.bprice.persistance.model.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,10 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
+
     @Autowired
     IDemandeActionMarketingRepository demandeActionMarketingRepository;
+
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
   @Override
