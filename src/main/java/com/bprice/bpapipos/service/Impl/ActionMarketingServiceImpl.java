@@ -283,4 +283,14 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
 
 
     }
+
+    @Override
+    public int countActionMarketingByNotificationEquals(int num) {
+       return actionMarketingRepository.countActionMarketingByNotificationEquals(num);
+    }
+
+    @Override
+    public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num, String idpartenaire) {
+        return actionMarketingRepository.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idpartenaire);
+    }
 }

@@ -170,8 +170,26 @@ IActionMarketingRepository actionMarketingRepository;
 
     }
 
+    @GetMapping("/numbernotifpartenaire/{idpartenaire}/{num}")
+    @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public int nombreNotificationPartenaire(HttpServletRequest request,@PathVariable("idpartenaire") String idpartenaire,@PathVariable("num") int num){
 
+        return actionMarketingService.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idpartenaire);
+    }
+    @GetMapping("/numbernotif/{num}")
+    @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public int nombreNotificationAdmin(HttpServletRequest request,@PathVariable("num") int num){
 
+        return actionMarketingService.countActionMarketingByNotificationEquals(num);
+    }
 }
 
 
