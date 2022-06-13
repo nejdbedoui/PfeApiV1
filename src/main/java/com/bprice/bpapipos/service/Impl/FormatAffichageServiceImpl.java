@@ -40,6 +40,7 @@ public class FormatAffichageServiceImpl implements IFormatAffichageService {
     @Override
     public ResponseObject updateformat(FormatAffichage formatAffichage) {
         try {
+            System.out.println(formatAffichage);
             if (formatAffichage != null) {
                 if (iFormatAffichageRepository.existsById(formatAffichage.getIdFormatAffichage())) {
 

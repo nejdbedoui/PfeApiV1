@@ -18,4 +18,5 @@ public interface IActionMarketingRepository extends MongoRepository<ActionMarket
     public List<ActionMarketing> findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(String idCanal,int statut);
 
 
+
 }

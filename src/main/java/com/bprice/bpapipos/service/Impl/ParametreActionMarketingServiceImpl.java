@@ -9,6 +9,7 @@ import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IParametreActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
 import com.bprice.persistance.model.ActionMarketing;
+import com.bprice.persistance.model.DemandeActionMarketing;
 import com.bprice.persistance.model.ParametreActionMarketing;
 import com.bprice.persistance.model.PartenaireBprice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,47 +31,29 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
     @Autowired
     IActionMarketingRepository actionMarketingRepository;
     @Override
-    public ResponseObject CreateParametreActionMarketing(ParametreActionMarketing parametreActionMarketing,String idAction) {
+    public ResponseObject CreateParametreActionMarketing(ParametreActionMarketing parametreActionMarketing) {
         try {
-            List<String> notfound = new ArrayList<>();
             if (parametreActionMarketing != null) {
-                if (parametreActionMarketing.getListeidPartenaire().size()>0) {
-
-                    parametreActionMarketing.getListeidPartenaire().forEach((part)->{
-                                PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(part)
-                                        .getObjectResponse();
-                                if(partenaireBprice==null){
-                                    notfound.add(part);
-                                }
-                            }
-                            );
-                    if (notfound.size()==0) {
-                        if(idAction!=null){
-                            ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(idAction).getObjectResponse();
-
-                            if(actionMarketing!=null){
-                                ParametreActionMarketing result = parametreActionMarketingRepository.save(parametreActionMarketing);
-                                actionMarketing.setIdParametreAction(result.getIdParametreAction());
-                                actionMarketing.setStatut(2);
-                                actionMarketingRepository.save(actionMarketing);
-                                return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
-                                        EnumMessage.SUCCESS_CREATION.label, result);
-                            }
-                            else {
-                                return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code,
-                                        EnumMessage.ACTIONMARKETING_NOT_EXIST.label, null);
-                            }
-                        }else {
-                            return new ResponseObject(EnumMessage.ID_EMPTY.code,
-                                    EnumMessage.ID_EMPTY.label,null);
+                if (parametreActionMarketing.getIdPartenaireCible() != null) {
+                    PartenaireBprice partenaireBprice = (PartenaireBprice) partenaireBpriceService.findByIdPartenaire(parametreActionMarketing.getIdPartenaireCible())
+                            .getObjectResponse();
+                    if (partenaireBprice != null) {
+                        ActionMarketing actionMarketing = (ActionMarketing) actionMarketingService.findByIdActionMarketing(parametreActionMarketing.getIdActionMarketing())
+                                .getObjectResponse();
+                        if(actionMarketing!=null) {
+                           ParametreActionMarketing result = parametreActionMarketingRepository.save(parametreActionMarketing);
+                            return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
+                                    EnumMessage.SUCCESS_CREATION.label, result);
                         }
-
-
+                        else {
+                            return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code,
+                                    EnumMessage.ACTIONMARKETING_NOT_EXIST.label, null);
+                        }
 
 
                     } else {
                         return new ResponseObject(EnumMessage.PARTENAIREBPRICE_NOT_EXIST.code,
-                                EnumMessage.PARTENAIREBPRICE_NOT_EXIST.label, notfound);
+                                EnumMessage.PARTENAIREBPRICE_NOT_EXIST.label, null);
 
                     }
                 } else {
@@ -140,6 +123,27 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
                         result);
             } else {
                 return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
+
+    @Override
+    public ResponseObject findByIdActionMarketingAndIdPartenaireCible(String idActionMarketing, String idPartenaireCible) {
+        try {
+            if (idActionMarketing != null && idPartenaireCible!=null) {
+                ParametreActionMarketing result = parametreActionMarketingRepository.findByIdActionMarketingAndIdPartenaireCible(idActionMarketing,idPartenaireCible);
+                if (result != null) {
+                    return new ResponseObject(EnumMessage.ACTIONMARKETING_EXIST.code, EnumMessage.ACTIONMARKETING_EXIST.label, result);
+                } else {
+                    return new ResponseObject(EnumMessage.ACTIONMARKETING_NOT_EXIST.code, EnumMessage.ACTIONMARKETING_NOT_EXIST.label,
+                            null);
+                }
+            } else {
+                return new ResponseObject(EnumMessage.ID_EMPTY.code, EnumMessage.ID_EMPTY.label, null);
+
             }
         } catch (Exception e) {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
