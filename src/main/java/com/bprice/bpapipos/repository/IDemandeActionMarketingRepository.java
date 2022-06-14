@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface IDemandeActionMarketingRepository extends MongoRepository<DemandeActionMarketing,String> {
     public List<DemandeActionMarketing> findAllByIdPartenaireOrderByDateCreationDesc(String IdPartenaire);
+    public List<DemandeActionMarketing> findAllByIdPartenaireAndStatutEqualsOrderByDateCreationDesc(String IdPartenaire,int statut);
+
+
     public List<DemandeActionMarketing> findAll();
     public List<DemandeActionMarketing> findAllByStatutOrderByDateCreationDesc(int statut);
     public List<DemandeActionMarketing> findAllByStatutGreaterThanOrderByDateCreationDesc(int statut);

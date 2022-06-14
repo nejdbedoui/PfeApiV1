@@ -4,6 +4,7 @@ import com.bprice.bpapipos.Enum.EnumMessage;
 import com.bprice.bpapipos.repository.ICanalDiffusionRepository;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.ICanalDiffusionService;
+import com.bprice.persistance.model.ActionMarketing;
 import com.bprice.persistance.model.CanalDiffusion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,6 +128,27 @@ public class CanalDiffusionServiceImpl implements ICanalDiffusionService {
                         result);
             } else {
                 return new ResponseObject(EnumMessage.LIST_CANALEDIFFUSION_EMPTY.code, EnumMessage.LIST_CANALEDIFFUSION_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
+
+    @Override
+    public ResponseObject findByIdCanalDiffusion(String idCanal) {
+        try {
+            if (idCanal != null) {
+                CanalDiffusion result = canalDiffusionRepository.findCanalDiffusionByIdCanaldiffusion(idCanal);
+                if (result != null) {
+                    return new ResponseObject(EnumMessage.CANALEDIFFUSION_EXIST.code, EnumMessage.CANALEDIFFUSION_EXIST.label, result);
+                } else {
+                    return new ResponseObject(EnumMessage.CANALEDIFFUSION_NOT_EXIST.code, EnumMessage.CANALEDIFFUSION_NOT_EXIST.label,
+                            null);
+                }
+            } else {
+                return new ResponseObject(EnumMessage.ID_EMPTY.code, EnumMessage.ID_EMPTY.label, null);
+
             }
         } catch (Exception e) {
             return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);

@@ -9,4 +9,5 @@ public interface ICanalDiffusionRepository  extends MongoRepository<CanalDiffusi
     public List<CanalDiffusion> findAll();
     public List<CanalDiffusion> findAllByFActifEquals(int active);
     public CanalDiffusion findCanalDiffusionByLibelle(String libelle);
+    public CanalDiffusion findCanalDiffusionByIdCanaldiffusion(String idCanalDiffusion);
 }
