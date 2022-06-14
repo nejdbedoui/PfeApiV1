@@ -6,10 +6,7 @@ import com.bprice.bpapipos.repository.*;
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
-import com.bprice.persistance.model.ActionMarketing;
-import com.bprice.persistance.model.CanalDiffusion;
-import com.bprice.persistance.model.PartenaireBprice;
-import com.bprice.persistance.model.Storage;
+import com.bprice.persistance.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +25,8 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IActionMarketingRepository actionMarketingRepository;
     @Autowired
     IStorageRepository storageRepository;
-
     @Autowired
     IDemandeActionMarketingRepository demandeActionMarketingRepository;
-
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
   @Override
@@ -45,11 +40,12 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
                         actionMarketing.setStatut(0);
                         ActionMarketing result = actionMarketingRepository.save(actionMarketing);
                         DemandeActionMarketing demandeActionMarketing = new DemandeActionMarketing();
-                        demandeActionMarketing.setStatut(0);
+                        demandeActionMarketing.setStatut(1);
                         demandeActionMarketing.setDateCreation(actionMarketing.getDateCreation());
                         demandeActionMarketing.setNotification(0);
                         demandeActionMarketing.setIdPartenaire(actionMarketing.getIdPartenaire());
                         demandeActionMarketing.setIdActionMarketing(result.getIdActionMarketing());
+                        demandeActionMarketingRepository.save(demandeActionMarketing);
                         return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                                 EnumMessage.SUCCESS_CREATION.label, result);
 

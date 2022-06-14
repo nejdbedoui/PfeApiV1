@@ -150,4 +150,20 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
 
         }
     }
+
+    @Override
+    public ResponseObject findAllByIdPartenaireCibleAndStatut(String idPartenaire, int statut) {
+        try {
+            List<ParametreActionMarketing> result = parametreActionMarketingRepository.findAllByIdPartenaireCibleAndStatut(idPartenaire, statut);
+            if (result != null) {
+                return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
+                        result);
+            } else {
+                return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, null);
+
+        }
+    }
 }
