@@ -28,6 +28,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,7 +87,7 @@ public class StorageServiceImpl  implements IStorageService {
     public String uploadFile(File file, String fileName) throws IOException {
         BlobId blobId = BlobId.of("pfe2022-fbd5d.appspot.com", fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("E:/Users/nabil.NEJD23/Desktop/stage$/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
+        Credentials credentials = GoogleCredentials.fromStream(Files.newInputStream(Paths.get("C:/Users/Mega-PC/Desktop/PFE BACK2/bp-api-pos/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json")));
         com.google.cloud.storage.Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
         return String.format("https://firebasestorage.googleapis.com/v0/b/pfe2022-fbd5d.appspot.com/o/%s?alt=media", URLEncoder.encode(fileName, String.valueOf(StandardCharsets.UTF_8)));
@@ -147,7 +148,7 @@ public class StorageServiceImpl  implements IStorageService {
     @Override
         public ResponseObject DeletePublicicteImage(String fileName) throws IOException {
             BlobId blobId = BlobId.of("pfe2022-fbd5d.appspot.com", fileName);
-            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("E:/Users/nabil.NEJD23/Desktop/stage$/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json"));
+            Credentials credentials = GoogleCredentials.fromStream(Files.newInputStream(Paths.get("C:/Users/Mega-PC/Desktop/PFE BACK2/bp-api-pos/pfe2022-fbd5d-firebase-adminsdk-unkj7-39e4219d02.json")));
             com.google.cloud.storage.Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
           boolean result=  storage.delete(blobId);
 
