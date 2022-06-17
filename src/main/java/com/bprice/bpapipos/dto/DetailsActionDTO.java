@@ -7,6 +7,21 @@ public class DetailsActionDTO {
     private List<String> secteurCible;
     private List<Integer> age;//30-40
     private int sexe;//h,f,h-f
+    private List<String> ville;
+    private String namefile;
+    private int typefile;
+    private String urlmedia;
+    private String canaldifusion;
+    private String formataffichage;
+    private String idSector;
+
+    public String getIdSector() {
+        return idSector;
+    }
+
+    public void setIdSector(String idSector) {
+        this.idSector = idSector;
+    }
 
     public List<String> getSecteurCible() {
         return secteurCible;
@@ -24,12 +39,7 @@ public class DetailsActionDTO {
         this.age = age;
     }
 
-    private List<String> ville;
-    private String namefile;
-    private int typefile;
-    private String urlmedia;
-    private String canaldifusion;
-    private String formataffichage;
+
 
     public String getSector() {
         return sector;
