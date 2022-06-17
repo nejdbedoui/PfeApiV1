@@ -43,6 +43,7 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
             if(populationCible.getAge()!=null)
             details.setAge(populationCible.getAge());
             details.setSexe(populationCible.getSexe());
+            details.setIdSector(actionMarketing.getIdCategorie());
             if(actionMarketing.getSecteurcible().size()>0){
                 List<String> listesecteur = new ArrayList<>();
                 for (int i = 0; i < actionMarketing.getSecteurcible().size(); i++) {

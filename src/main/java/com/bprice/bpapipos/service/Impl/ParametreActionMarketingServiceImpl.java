@@ -32,6 +32,7 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
     IActionMarketingRepository actionMarketingRepository;
     @Override
     public ResponseObject CreateParametreActionMarketing(ParametreActionMarketing parametreActionMarketing) {
+        System.out.println(parametreActionMarketing);
         try {
             if (parametreActionMarketing != null) {
                 if (parametreActionMarketing.getIdPartenaireCible() != null) {
