@@ -12,4 +12,5 @@ public interface ICanalDiffusionService {
     public ResponseObject deleteCanal(String id);
     public ResponseObject findAllActiveCanal();
     public ResponseObject findCanalBylibelle(String libelle);
+    public ResponseObject findByIdCanalDiffusion(String idCanal);
 }

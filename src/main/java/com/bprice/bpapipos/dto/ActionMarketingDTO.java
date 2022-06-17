@@ -21,6 +21,8 @@ public class ActionMarketingDTO {
     private int statut;
     private String type;
     private int typeitem;
+    private String typeitemsec;
+
     private String smsBody;
     private String titre;
     private String nomsecteur;
@@ -65,14 +67,20 @@ public class ActionMarketingDTO {
     }
 
 
-
-
     public int getTypeitem() {
         return typeitem;
     }
 
     public void setTypeitem(int typeitem) {
         this.typeitem = typeitem;
+    }
+
+    public String getTypeitemsec() {
+        return typeitemsec;
+    }
+
+    public void setTypeitemsec(String typeitemsec) {
+        this.typeitemsec = typeitemsec;
     }
 
     public void setSmsBody(String smsBody){
