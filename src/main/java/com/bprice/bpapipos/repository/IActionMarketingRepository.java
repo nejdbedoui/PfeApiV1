@@ -17,8 +17,10 @@ public interface IActionMarketingRepository extends MongoRepository<ActionMarket
     public List<ActionMarketing> findActionMarketingByDateCreationBetweenOrderByDateCreationDesc(Date DateDebut,Date DateFin);
     public List<ActionMarketing> findAllByIdCanaldiffusionAndStatutGreaterThanOrderByDateCreationDesc(String idCanal,int statut);
 
+
     public int countActionMarketingByNotificationEquals(int num);
     public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num,String idpartenaire);
+
 
 
 
