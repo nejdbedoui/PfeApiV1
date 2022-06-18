@@ -20,6 +20,9 @@ public interface IActionMarketingService {
     public int countActionMarketingByNotificationEquals(int num);
     public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num, String idpartenaire);
 
+    public int countActionMarketingByNotificationEquals(int num);
+
+    public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num,String idpartenaire);
 
     public ResponseObject entityToDto(List<ActionMarketing> actionMarketings);
 }
