@@ -152,6 +152,10 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
         }
     }
 
+
+
+
+
     @Override
     public ResponseObject findAllByIdPartenaireCibleAndStatut(String idPartenaire, int statut) {
         try {
