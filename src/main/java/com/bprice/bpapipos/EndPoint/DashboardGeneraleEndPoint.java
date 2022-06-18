@@ -36,4 +36,14 @@ public class DashboardGeneraleEndPoint {
     public Object findAllDemandeDiffusionDTOByIdPartenaire(HttpServletRequest request, @PathVariable("IdPartenaire") String IdPartenaire){
         return  dashboardGeneraleService.findAllDemandeDiffusionDTOByIdPartenaire(IdPartenaire);
     }
+
+    @GetMapping("/findTotalRevenueAndNombreDemandeEnCour/{IdPartenaire}")
+    @ApiOperation(value = "Afficher les Demandes selon l'idPartenaire envoyer", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findTotalRevenueAndNombreDemandeEnCour(HttpServletRequest request, @PathVariable("IdPartenaire") String IdPartenaire){
+        return  dashboardGeneraleService.findTotalRevenueAndNombreDemandeEnCour(IdPartenaire);
+    }
 }

@@ -6,6 +6,6 @@ public interface IDashboardGeneraleService {
     public ResponseObject findAllDemandeDiffusionDTOByIdPartenaire(String idPartenaire);
     public ResponseObject findAllActionEnCourDeDiffusionByIdPartenaire(String idPartenaire);
 
-    public ResponseObject findTotalRevenueAndAge(String idPartenaire);
+    public ResponseObject findTotalRevenueAndNombreDemandeEnCour(String idPartenaire);
 
 }
