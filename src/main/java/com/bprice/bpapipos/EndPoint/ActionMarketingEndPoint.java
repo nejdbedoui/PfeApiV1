@@ -190,6 +190,7 @@ IDemandeActionMarketingService demandeActionMarketingService;
 
     }
 
+
     @GetMapping("/numbernotifpartenaire/{idPartenaire}/{num}")
     @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
@@ -200,7 +201,6 @@ IDemandeActionMarketingService demandeActionMarketingService;
 
         return actionMarketingService.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idPartenaire);
     }
-
     @GetMapping("/numbernotif/{num}")
     @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
