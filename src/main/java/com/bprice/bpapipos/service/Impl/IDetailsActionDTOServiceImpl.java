@@ -38,11 +38,16 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
             Categorie categorie=categorieRepository.findById(actionMarketing.getIdCategorie()).orElse(null);
             CanalDiffusion canalDiffusion=canalDiffusionRepository.findById(actionMarketing.getIdCanaldiffusion()).orElse(null);
             PopulationCible populationCible=populationCibleRepository.findById(actionMarketing.getIdPopulationCible()).orElse(null);
+            if(categorie !=null)
             details.setSector(categorie.getDesignation());
+            if(canalDiffusion !=null )
             details.setCanaldifusion(canalDiffusion.getLibelle());
-            if(populationCible.getAge()!=null)
-            details.setAge(populationCible.getAge());
-            details.setSexe(populationCible.getSexe());
+            if(populationCible != null){
+                details.setAgeMin(populationCible.getAgeMin());
+                details.setAgeMax(populationCible.getAgeMax());
+                details.setSexe(populationCible.getSexe());
+            }
+
             if(actionMarketing.getSecteurcible().size()>0){
                 List<String> listesecteur = new ArrayList<>();
                 for (int i = 0; i < actionMarketing.getSecteurcible().size(); i++) {

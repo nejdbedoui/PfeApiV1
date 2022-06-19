@@ -5,7 +5,8 @@ import java.util.List;
 public class DetailsActionDTO {
     private String sector;
     private List<String> secteurCible;
-    private List<Integer> age;//30-40
+    private int ageMin;//30-40
+    private int ageMax;
     private int sexe;//h,f,h-f
 
     public List<String> getSecteurCible() {
@@ -16,12 +17,20 @@ public class DetailsActionDTO {
         this.secteurCible = secteurCible;
     }
 
-    public List<Integer> getAge() {
-        return age;
+    public int getAgeMin() {
+        return ageMin;
     }
 
-    public void setAge(List<Integer> age) {
-        this.age = age;
+    public void setAgeMin(int ageMin) {
+        this.ageMin = ageMin;
+    }
+
+    public int getAgeMax() {
+        return ageMax;
+    }
+
+    public void setAgeMax(int ageMax) {
+        this.ageMax = ageMax;
     }
 
     private List<String> ville;
