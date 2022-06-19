@@ -20,6 +20,7 @@ public interface IActionMarketingRepository extends MongoRepository<ActionMarket
 
     public int countActionMarketingByNotificationEquals(int num);
     public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num,String idpartenaire);
+   // public List<ActionMarketing> findAllByStatutAndAuto(int statut,boolean auto);
 
 
 

@@ -4,8 +4,10 @@ import com.bprice.bpapipos.repository.IActionMarketingRepository;
 import com.bprice.bpapipos.repository.IDemandeActionMarketingRepository;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IDemandeActionMarketingService;
+import com.bprice.bpapipos.service.Impl.DiffusionAutomatiseeServiceImpl;
 import com.bprice.persistance.model.ActionMarketing;
 import com.bprice.persistance.model.DateRange;
+import com.bprice.persistance.model.PubliciteMobile;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -25,7 +27,8 @@ public class ActionMarketingEndPoint {
 IActionMarketingService actionMarketingService;
 @Autowired
 IActionMarketingRepository actionMarketingRepository;
-
+@Autowired
+DiffusionAutomatiseeServiceImpl diffusionAutomatiseeService;
 @Autowired
 IDemandeActionMarketingRepository demandeActionMarketingRepository;
 @Autowired
@@ -211,6 +214,23 @@ IDemandeActionMarketingService demandeActionMarketingService;
 
         return actionMarketingService.countActionMarketingByNotificationEquals(num);
     }
+    @GetMapping("/miseajour")
+    @ApiOperation(value = "mise a jour", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public void nombreNotificationAdmin(HttpServletRequest request){
+        diffusionAutomatiseeService.MiseAJour();
+    }
+
+
+    @GetMapping("/popup/{idclient}")
+    @CrossOrigin(origins = "*")
+    public Object popup(HttpServletRequest request, @PathVariable("idclient") String idclient){
+       return diffusionAutomatiseeService.check(idclient);
+    }
+
 }
 
 
