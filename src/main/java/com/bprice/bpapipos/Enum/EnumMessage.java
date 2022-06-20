@@ -238,6 +238,13 @@ public enum EnumMessage {
 	LIST_CONTRACT_EMPTY("la list des CONTRACT est vide",0),
 
 	DETAILS_NOT_EMPTY("detail de l'action exist",1),
+	HISTORIQUEINTERACTION_EMPTY("historique interaction vide",0),
+	HISTORIQUEINTERACTION_ID_EMPTY("id historique interaction est null",-2),
+	HISTORIQUEINTERACTION_NOT_EXIST("historique interaction n'exist pas",-5),
+	HISTORIQUEINTERACTION_EXIST("le historique interaction exist",1),
+	LIST_HISTORIQUEINTERACTION_NOT_EMPTY("la list des historiques interactions est non vide",1),
+	LIST_HISTORIQUEINTERACTION_EMPTY("la list des historiques interactions est vide",0),
+
 
 	OK( "OK",0),
 	EXPIRED( "Expired",1),

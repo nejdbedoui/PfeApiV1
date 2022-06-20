@@ -195,16 +195,7 @@ IDemandeActionMarketingService demandeActionMarketingService;
         return  demandeActionMarketingService.entityToDto(demandeActionMarketingRepository.findAll());
 
     }
-    @GetMapping("/numbernotif/{num}")
-    @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
-            @Authorization(value = "Bearer") }, response = Object.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "not found") })
-    public int nombreNotificationAdmin(HttpServletRequest request,@PathVariable("num") int num){
 
-        return actionMarketingService.countActionMarketingByNotificationEquals(num);
-    }
 
     @GetMapping("/numbernotifpartenaire/{idPartenaire}/{num}")
     @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
@@ -216,27 +207,6 @@ IDemandeActionMarketingService demandeActionMarketingService;
 
         return actionMarketingService.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idPartenaire);
     }
-
-
-
-    @GetMapping("/numbernotifpartenaire/{idpartenaire}/{num}")
-    @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
-            @Authorization(value = "Bearer") }, response = Object.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "not found") })
-
-      public int nombreNotificationPartenaire(HttpServletRequest request,@PathVariable("idpartenaire") String idpartenaire,@PathVariable("num") int num){
-
-        return actionMarketingService.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idpartenaire);
-    }
-
-
-
-
-
-
-
     @GetMapping("/numbernotif/{num}")
     @ApiOperation(value = "afficher le nombre de notification pour utilisateur", authorizations = {
             @Authorization(value = "Bearer") }, response = Object.class)
@@ -264,6 +234,7 @@ IDemandeActionMarketingService demandeActionMarketingService;
        return diffusionAutomatiseeService.check(idclient);
     }
 
+
     @GetMapping("/click/{idclient}")
     @CrossOrigin(origins = "*")
     public void lick(HttpServletRequest request, @PathVariable("idclient") String idclient){
@@ -276,6 +247,19 @@ IDemandeActionMarketingService demandeActionMarketingService;
     public Object banner(HttpServletRequest request, @PathVariable("idclient") String idclient){
         return iPubliciteMobileRepository.findAll();
     }
+
+    @GetMapping("/findAllHistoriqueByIdActionMarketing/{idActionMarketing}")
+    @ApiOperation(value = "mise a jour", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllHistoriqueByIdActionMarketing(HttpServletRequest request, @PathVariable("idActionMarketing") String idAcionMarketing){
+
+        return actionMarketingService.findAllHistoriqueInteraction(idAcionMarketing);
+    }
+
+
 }
 
 
