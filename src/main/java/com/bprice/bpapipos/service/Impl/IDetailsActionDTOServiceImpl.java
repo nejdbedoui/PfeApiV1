@@ -42,11 +42,13 @@ public class IDetailsActionDTOServiceImpl implements IDetailsActionDTOService {
             details.setSector(categorie.getDesignation());
             if(canalDiffusion !=null )
             details.setCanaldifusion(canalDiffusion.getLibelle());
+
             if(populationCible != null){
                 details.setAgeMin(populationCible.getAgeMin());
                 details.setAgeMax(populationCible.getAgeMax());
                 details.setSexe(populationCible.getSexe());
             }
+
 
             if(actionMarketing.getSecteurcible().size()>0){
                 List<String> listesecteur = new ArrayList<>();

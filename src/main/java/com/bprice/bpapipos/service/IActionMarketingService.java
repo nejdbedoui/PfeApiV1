@@ -17,6 +17,8 @@ public interface IActionMarketingService {
     public ResponseObject findAllByIdCanalDiffusion(String idCanal);
     public ResponseObject findAll();
     public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut);
+    public int countActionMarketingByNotificationEquals(int num);
+    public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num, String idpartenaire);
 
     public int countActionMarketingByNotificationEquals(int num);
 

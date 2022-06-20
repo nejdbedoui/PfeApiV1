@@ -1,20 +1,14 @@
-package com.bprice.bpapipos.repository;
+package com.bprice.bpapipos.EndPoint;
 
 import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
-
-import com.bprice.bpapipos.service.IDashboardGeneraleService;
 import com.bprice.bpapipos.service.Impl.ActionMarketingServiceImpl;
-import com.bprice.bpapipos.service.Impl.DashboardGeneraleServiceImpl;
-
 import com.bprice.persistance.model.ActionMarketing;
-import org.junit.jupiter.api.Test;
+import junit.framework.TestCase;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class IActionMarketingRepositoryTest {
-
-   private final IActionMarketingService undertest=new ActionMarketingServiceImpl();
+public class ActionMarketingEndPointTest extends TestCase {
+    private final IActionMarketingService undertest=new ActionMarketingServiceImpl();
 
 
 
@@ -60,7 +54,5 @@ class IActionMarketingRepositoryTest {
     void findByIdActionMarketing(){
         assertNotNull(undertest.findByIdActionMarketing("azfds"));
     }
-
-
 
 }
