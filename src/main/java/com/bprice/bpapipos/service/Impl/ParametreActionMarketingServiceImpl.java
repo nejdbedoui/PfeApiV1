@@ -8,10 +8,7 @@ import com.bprice.bpapipos.response.ResponseObject;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IParametreActionMarketingService;
 import com.bprice.bpapipos.service.IPartenaireBpriceService;
-import com.bprice.persistance.model.ActionMarketing;
-import com.bprice.persistance.model.DemandeActionMarketing;
-import com.bprice.persistance.model.ParametreActionMarketing;
-import com.bprice.persistance.model.PartenaireBprice;
+import com.bprice.persistance.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +73,30 @@ public class ParametreActionMarketingServiceImpl implements IParametreActionMark
 
     @Override
     public ResponseObject UpdateParametreActionMarketing(ParametreActionMarketing parametreActionMarketing) {
-        return null;
+        try {
+            if (parametreActionMarketing != null) {
+                if (parametreActionMarketingRepository.existsById(parametreActionMarketing.getIdParametreAction())) {
+
+
+                    ParametreActionMarketing result = parametreActionMarketingRepository.save(parametreActionMarketing);
+                    return new ResponseObject(EnumMessage.SUCCESS_UPDATE.code,
+                            EnumMessage.SUCCESS_UPDATE.label, result);
+
+
+
+
+                } else {
+                    return new ResponseObject(EnumMessage.CANALEDIFFUSION_NOT_EXIST.code, EnumMessage.CANALEDIFFUSION_NOT_EXIST.label,
+                            null);
+
+                }
+
+            } else {
+                return new ResponseObject(EnumMessage.CANALEDIFFUSION_EMPTY.code, EnumMessage.CANALEDIFFUSION_EMPTY.label, null);
+            }
+        } catch (Exception e) {
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, e.getMessage(), null);
+        }
     }
 
     @Override

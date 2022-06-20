@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IHistoriqueRepository extends MongoRepository<Historique,String> {
    public List<Historique> findAllByIdActionmarketingAndIdClient(String idAction,String idClient);
+   public List<Historique> findAllByIdActionmarketing(String idActionMarketing);
+public Historique findFirstByIdActionmarketingOrderByDateDesc(String idActionMarketing);
 }

@@ -27,6 +27,8 @@ public class ActionMarketingServiceImpl implements IActionMarketingService {
     IStorageRepository storageRepository;
     @Autowired
     IDemandeActionMarketingRepository demandeActionMarketingRepository;
+    @Autowired
+    IHistoriqueRepository historiqueRepository;
 @Autowired
 ICanalDiffusionRepository iCanalDiffusionRepository;
   @Override
@@ -267,6 +269,34 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_NOT_EMPTY.label,
                 actionMarketings.stream().map(x -> entityToOneDto(x)).collect(Collectors.toList()));
     }
+
+    @Override
+    public ResponseObject findAllHistoriqueInteraction(String idActionMarketing) {
+        try {
+            if(idActionMarketing!=null) {
+                ActionMarketing actionMarketing = (ActionMarketing) this.findByIdActionMarketing(idActionMarketing).getObjectResponse();
+                if (actionMarketing != null) {
+                    List<Historique> result = historiqueRepository.findAllByIdActionmarketing(idActionMarketing);
+                    if (result.size() > 0) {
+                        return new ResponseObject(EnumMessage.LIST_HISTORIQUEINTERACTION_NOT_EMPTY.code, EnumMessage.LIST_HISTORIQUEINTERACTION_NOT_EMPTY.label,
+                                result);
+
+                    } else {
+                        return new ResponseObject(EnumMessage.LIST_ACTIONMARKETING_EMPTY.code, EnumMessage.LIST_ACTIONMARKETING_EMPTY.label, null);
+                    }
+                } else {
+                    return new ResponseObject(EnumMessage.ACTIONMARKETING_EMPTY.code, EnumMessage.ACTIONMARKETING_EMPTY.label, null);
+
+                }
+            }else{
+                return new ResponseObject(EnumMessage.ID_EMPTY.code, EnumMessage.ID_EMPTY.label, null);
+            }
+        }catch (Exception e){
+            return new ResponseObject(EnumMessage.ERREUR_QUERY.code, EnumMessage.ERREUR_QUERY.label, e);
+
+        }
+    }
+
     public ResponseObject findAllActionMarketingDTOWithStatutBiggerThan(Integer statut){
         try {
             if(statut!=null){

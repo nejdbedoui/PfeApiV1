@@ -141,7 +141,7 @@ IClientRepository iClientRepository;
         System.out.println("yes4");
         List<Historique> historique2=iHistoriqueRepository.findAllByIdActionmarketingAndIdClient(actionMarketing.getIdActionMarketing(),client1.getIdClient());
         int genre=2;
-        if(client1.getGenre().equals("Hpmme")){
+        if(client1.getGenre().equals("Homme")){
             genre=1;
         }else if(client1.getGenre().equals("Femme")){
             genre=0;
