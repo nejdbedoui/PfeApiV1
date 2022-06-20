@@ -231,6 +231,17 @@ IDemandeActionMarketingService demandeActionMarketingService;
        return diffusionAutomatiseeService.check(idclient);
     }
 
+    @GetMapping("/findAllHistoriqueByIdActionMarketing/{idActionMarketing}")
+    @ApiOperation(value = "mise a jour", authorizations = {
+            @Authorization(value = "Bearer") }, response = Object.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Object.class),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "not found") })
+    public Object findAllHistoriqueByIdActionMarketing(HttpServletRequest request, @PathVariable("idActionMarketing") String idAcionMarketing){
+
+        return actionMarketingService.findAllHistoriqueInteraction(idAcionMarketing);
+    }
+
 }
 
 

@@ -8,4 +8,7 @@ public interface IDiffusionAutomatiseeService {
     public ResponseObject check(String id);
 
     void click(String idClient);
+
+
+
 }

@@ -11,13 +11,13 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/gkz");
+        config.enableSimpleBroker("/HistoriqueInteraction");
+        config.setApplicationDestinationPrefixes("/v1");
     }
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
-                .addEndpoint("/gkz-stomp-endpoint")
+                .addEndpoint("/historique-stomp-endpoint")
                 .setAllowedOrigins("http://localhost:4200")
                 .withSockJS();
     }
