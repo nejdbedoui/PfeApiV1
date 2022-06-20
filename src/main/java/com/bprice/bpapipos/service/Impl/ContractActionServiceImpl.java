@@ -29,7 +29,8 @@ public class ContractActionServiceImpl implements IContratActionService {
     IContractActionRepository contractActionRepository;
     @Autowired
     IActionMarketingRepository actionMarketingRepository;
-
+@Autowired
+SendSMS sendSMS;
     @Override
     public ResponseObject CreateActionContract(ActionMarketingDTO actionMarketingDTO) {
 
@@ -55,7 +56,7 @@ public class ContractActionServiceImpl implements IContratActionService {
                     calendar.set(Calendar.MILLISECOND, 0);
                     int x = contractActionRepository.countAllByDateCreation(calendar.getTime()) + 1;
                     contrat.setNumeroContrat(Integer.toString(calendar.get(Calendar.YEAR)) + '-' + calendar.get(Calendar.MONTH) + '-' + calendar.get(Calendar.DAY_OF_MONTH) + "-c" + x);
-
+                    sendSMS.Sendmail();
                     Contrat result = contractActionRepository.save(contrat);
                     return new ResponseObject(EnumMessage.SUCCESS_CREATION.code,
                             EnumMessage.SUCCESS_CREATION.label, result);

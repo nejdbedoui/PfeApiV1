@@ -42,7 +42,7 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
                         actionMarketing.setStatut(0);
                         ActionMarketing result = actionMarketingRepository.save(actionMarketing);
                         DemandeActionMarketing demandeActionMarketing = new DemandeActionMarketing();
-                        demandeActionMarketing.setStatut(1);
+                        demandeActionMarketing.setStatut(0);
                         demandeActionMarketing.setDateCreation(actionMarketing.getDateCreation());
                         demandeActionMarketing.setNotification(0);
                         demandeActionMarketing.setIdPartenaire(actionMarketing.getIdPartenaire());
@@ -74,6 +74,8 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
         try {
             if (Idaction != null) {
                 if (actionMarketingRepository.existsById(Idaction)) {
+                    ActionMarketing actionMarketing=actionMarketingRepository.findById(Idaction).orElse(null);
+                    storageRepository.deleteById(actionMarketing.getIdStorage());
                     actionMarketingRepository.deleteById(Idaction);
                     return new ResponseObject(EnumMessage.SUCCESS_DELETE.code, EnumMessage.SUCCESS_DELETE.label, true);
                 } else {
@@ -328,4 +330,6 @@ ICanalDiffusionRepository iCanalDiffusionRepository;
     public int countActionMarketingByNotificationEqualsAndIdPartenaire(int num, String idpartenaire) {
         return actionMarketingRepository.countActionMarketingByNotificationEqualsAndIdPartenaire(num,idpartenaire);
     }
+
+
 }
