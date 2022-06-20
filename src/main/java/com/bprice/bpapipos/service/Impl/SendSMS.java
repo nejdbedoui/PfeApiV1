@@ -1,5 +1,10 @@
 package com.bprice.bpapipos.service.Impl;
 
+import com.bprice.bpapipos.EndPoint.SendSMSEndpoint;
+import com.bprice.bpapipos.repository.IPartenaireBpriceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,12 +22,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import ch.qos.logback.classic.Logger;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Service
 public class SendSMS {
+    @Autowired
+    private SendSMS sendingSmsService;
+    @Autowired
+    IPartenaireBpriceRepository partenaireBpriceRepository;
+    @Autowired
+    private JavaMailSender mailSender;
     private static final  Logger logger = LoggerFactory.getLogger(SendSMS.class);
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -110,5 +124,13 @@ public class SendSMS {
             return null;
         return msisdn;
     }
-
+    @Autowired
+    public void Sendmail(){
+        SimpleMailMessage message= new SimpleMailMessage();
+        message.setFrom("testmailsenderspringboot@gmail.com");
+        message.setTo("nejdbedoui@gmail.com");
+        message.setText("Chair partenaire, votre contrat est prêt pour être confirmé, veuillez le vérifier et le valider au plus taut possible \n  Merci pour votre compréhension \n http://localhost:4200/pages/gestionpub/gestionacontrat ");
+        message.setSubject("test");
+        mailSender.send(message);
+    }
 }

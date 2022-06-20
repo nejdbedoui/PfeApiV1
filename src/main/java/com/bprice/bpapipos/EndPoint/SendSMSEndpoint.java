@@ -26,7 +26,8 @@ public class SendSMSEndpoint {
     IPartenaireBpriceRepository partenaireBpriceRepository;
     @Autowired
     private JavaMailSender mailSender;
-
+    @Autowired
+    SendSMS sendSMS;
     @CrossOrigin()
     @RequestMapping(value = "/sendSms/destination/{destination}/bodysms/{bodysms}/application/{idApplication}", method = RequestMethod.GET)
     public @ResponseBody
@@ -57,9 +58,14 @@ public class SendSMSEndpoint {
     public void Sendmail(HttpServletRequest request){
         SimpleMailMessage message= new SimpleMailMessage();
         message.setFrom("testmailsenderspringboot@gmail.com");
-        message.setTo("saifhachana@gmail.com");
-        message.setText("mail sender");
+        message.setTo("nejdbedoui@gmail.com");
+        message.setText("Chair partenaire, votre contrat est prêt pour être confirmé, veuillez le vérifier et le valider au plus taut possible \n  Merci pour votre compréhension \n http://localhost:4200/pages/gestionpub/gestionacontrat ");
         message.setSubject("test");
         mailSender.send(message);
+    }
+
+    @PostMapping("/send_mail2")
+    public void Sendmail2(HttpServletRequest request){
+        sendSMS.Sendmail();
     }
 }

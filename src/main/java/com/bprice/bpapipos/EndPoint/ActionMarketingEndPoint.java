@@ -2,6 +2,7 @@ package com.bprice.bpapipos.EndPoint;
 
 import com.bprice.bpapipos.repository.IActionMarketingRepository;
 import com.bprice.bpapipos.repository.IDemandeActionMarketingRepository;
+import com.bprice.bpapipos.repository.IPubliciteMobileRepository;
 import com.bprice.bpapipos.service.IActionMarketingService;
 import com.bprice.bpapipos.service.IDemandeActionMarketingService;
 import com.bprice.bpapipos.service.Impl.DiffusionAutomatiseeServiceImpl;
@@ -33,6 +34,8 @@ DiffusionAutomatiseeServiceImpl diffusionAutomatiseeService;
 IDemandeActionMarketingRepository demandeActionMarketingRepository;
 @Autowired
 IDemandeActionMarketingService demandeActionMarketingService;
+@Autowired
+    IPubliciteMobileRepository iPubliciteMobileRepository;
 
     @PostMapping("/CreateActionMarketing")
     @ApiOperation(value = "créer une Action Marketing", authorizations = {
@@ -240,6 +243,18 @@ IDemandeActionMarketingService demandeActionMarketingService;
        return diffusionAutomatiseeService.check(idclient);
     }
 
+    @GetMapping("/click/{idclient}")
+    @CrossOrigin(origins = "*")
+    public void lick(HttpServletRequest request, @PathVariable("idclient") String idclient){
+        System.out.println("we did it");
+         diffusionAutomatiseeService.click(idclient);
+    }
+
+    @GetMapping("/allbanners")
+    @CrossOrigin(origins = "*")
+    public Object banner(HttpServletRequest request, @PathVariable("idclient") String idclient){
+        return iPubliciteMobileRepository.findAll();
+    }
 }
 
 

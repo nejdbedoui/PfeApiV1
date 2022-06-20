@@ -109,13 +109,13 @@ IClientRepository iClientRepository;
        }else if(client1.getGenre().equals("Femme")){
            genre=0;
        }
-        if(parametreActionMarketing != null && historique2.isEmpty()){
+        if(parametreActionMarketing != null ){
             System.out.println("yes5");
             if((genre==publiciteMobile.getSexeCible() || publiciteMobile.getSexeCible()==2) && (publiciteMobile.getAgeMin() >= (client1.getDateNaissance().getYear()-new Date().getYear()) && (client1.getDateNaissance().getYear()-new Date().getYear()) <= publiciteMobile.getAgeMax())) {
                 System.out.println("yes6");
                 Historique historique=new Historique();
                 historique.setAction(0);
-                historique.setAge(client1.getDateNaissance().getYear()-new Date().getYear());
+                historique.setAge(new Date().getYear()-client1.getDateNaissance().getYear());
                 historique.setDate(new Date());
                 historique.setIdActionmarketing(actionMarketing.getIdActionMarketing());
                 historique.setSexe(genre);
@@ -155,6 +155,7 @@ IClientRepository iClientRepository;
             historique.setSexe(genre);
             historique.setIdClient(client1.getIdClient());
             iHistoriqueRepository.save(historique);
+
         }
     }
 
