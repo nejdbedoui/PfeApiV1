@@ -17,4 +17,5 @@ public interface IParametreActionMarketingService {
     public ResponseObject findByIdActionMarketingAndIdPartenaireCible(String idActionMarketing,String idPartenaireCible);
 
     public ResponseObject findAllByIdPartenaireCibleAndStatut(String idPartenaire,int statut);
+    public ResponseObject findAllByIdActionMarketingAndStatut(String IdPartenairen,int statut);
 }

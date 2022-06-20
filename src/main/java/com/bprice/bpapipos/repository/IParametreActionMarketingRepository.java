@@ -19,4 +19,6 @@ public interface IParametreActionMarketingRepository extends MongoRepository<Par
 
     public List<ParametreActionMarketing> findAllByIdPartenaireCible(String idPartenaireCible);
 
+    public List<ParametreActionMarketing> findAllByIdActionMarketingAndStatut(String idPartenaireCible,int statut);
+
 }
